@@ -13,14 +13,14 @@ import { useJournalEntries } from '../hooks/useJournalEntries';
 
 export default function EntryDetailScreen({ route, navigation }: any) {
   const { entryId } = route?.params || {};
-  const { getEntryById, updateEntry, deleteEntry } = useJournalEntries();
+  const { getEntryById, updateEntry, deleteEntry, loading } = useJournalEntries();
   const [entry, setEntry] = useState<any>(null);
   const [isEditing, setIsEditing] = useState(false);
   const [editedText, setEditedText] = useState('');
   const [isUpdating, setIsUpdating] = useState(false);
 
   useEffect(() => {
-    if (entryId) {
+    if (entryId && !loading) {
       const foundEntry = getEntryById(entryId);
       if (foundEntry) {
         setEntry(foundEntry);
@@ -30,7 +30,7 @@ export default function EntryDetailScreen({ route, navigation }: any) {
         navigation.goBack();
       }
     }
-  }, [entryId, getEntryById, navigation]);
+  }, [entryId, getEntryById, navigation, loading]);
 
   const handleUpdate = async () => {
     if (!editedText.trim()) {
@@ -89,10 +89,18 @@ export default function EntryDetailScreen({ route, navigation }: any) {
     });
   };
 
+  if (loading) {
+    return (
+      <SafeAreaView style={styles.container}>
+        <Text style={styles.loadingText}>Loading entry...</Text>
+      </SafeAreaView>
+    );
+  }
+
   if (!entry) {
     return (
       <SafeAreaView style={styles.container}>
-        <Text style={styles.loadingText}>Loading...</Text>
+        <Text style={styles.loadingText}>Entry not found</Text>
       </SafeAreaView>
     );
   }
