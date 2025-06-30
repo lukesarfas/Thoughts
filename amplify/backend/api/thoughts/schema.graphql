@@ -1,0 +1,78 @@
+# This "input" configures a global authorization rule to enable public access to
+# all models in this schema. Learn more about authorization rules here: https://docs.amplify.aws/cli/graphql/authorization-rules
+input AMPLIFY { globalAuthRule: AuthRule = { allow: public } } # FOR TESTING ONLY!
+
+type User @model @auth(rules: [{ allow: owner }]) {
+  id: ID!
+  username: String!
+  email: String!
+  journalEntries: [JournalEntry] @hasMany(indexName: "byUser", fields: ["id"])
+  knownRelations: [PersonRelation] @hasMany(indexName: "bySource", fields: ["id"])
+  relatedBy: [PersonRelation] @hasMany(indexName: "byTarget", fields: ["id"])
+  visits: [Visit] @hasMany(indexName: "byUser", fields: ["id"])
+  visitParticipants: [VisitParticipant] @hasMany(indexName: "byUser", fields: ["id"])
+  entryPeople: [EntryPerson] @hasMany(indexName: "byUser", fields: ["id"])
+}
+
+type JournalEntry @model @auth(rules: [{ allow: owner }]) {
+  id: ID!
+  userID: ID! @index(name: "byUser")
+  date: AWSDate!
+  content: String!
+  moodTags: [String]
+  sentimentScore: Float
+  people: [EntryPerson] @hasMany(indexName: "byEntry", fields: ["id"])
+  places: [EntryPlace] @hasMany(indexName: "byEntry", fields: ["id"])
+}
+
+type Place @model {
+  id: ID!
+  name: String!
+  description: String
+  location: String
+  visits: [Visit] @hasMany(indexName: "byPlace", fields: ["id"])
+  mentionedInEntries: [EntryPlace] @hasMany(indexName: "byPlace", fields: ["id"])
+}
+
+type Visit @model @auth(rules: [{ allow: owner }]) {
+  id: ID!
+  userID: ID! @index(name: "byUser")
+  placeID: ID! @index(name: "byPlace")
+  date: AWSDate!
+  notes: String
+  participants: [VisitParticipant] @hasMany(indexName: "byVisit", fields: ["id"])
+}
+
+type VisitParticipant @model {
+  id: ID!
+  visitID: ID! @index(name: "byVisit")
+  userID: ID! @index(name: "byUser")
+  visit: Visit @belongsTo(fields: ["visitID"])
+  user: User @belongsTo(fields: ["userID"])
+}
+
+type PersonRelation @model @auth(rules: [{ allow: owner }]) {
+  id: ID!
+  sourceID: ID! @index(name: "bySource")
+  targetID: ID! @index(name: "byTarget")
+  relationType: String!
+  source: User @belongsTo(fields: ["sourceID"])
+  target: User @belongsTo(fields: ["targetID"])
+}
+
+type EntryPerson @model @auth(rules: [{ allow: owner }]) {
+  id: ID!
+  entryID: ID! @index(name: "byEntry")
+  userID: ID! @index(name: "byUser")
+  entry: JournalEntry @belongsTo(fields: ["entryID"])
+  user: User @belongsTo(fields: ["userID"])
+}
+
+type EntryPlace @model {
+  id: ID!
+  entryID: ID! @index(name: "byEntry")
+  placeID: ID! @index(name: "byPlace")
+  entry: JournalEntry @belongsTo(fields: ["entryID"])
+  place: Place @belongsTo(fields: ["placeID"])
+}
+
