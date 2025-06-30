@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 import {
   View,
   Text,
@@ -10,10 +10,18 @@ import {
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Calendar, DateData } from 'react-native-calendars';
 import { useJournalEntries } from '../hooks/useJournalEntries';
+import { useFocusEffect } from '@react-navigation/native';
 
 export default function CalendarScreen({ navigation }: any) {
-  const { entries, loading, error } = useJournalEntries();
+  const { entries, loading, error, loadEntries } = useJournalEntries();
   const [selectedDate, setSelectedDate] = useState<string>('');
+
+  // Refresh entries when screen comes into focus
+  useFocusEffect(
+    React.useCallback(() => {
+      loadEntries();
+    }, [loadEntries])
+  );
 
   // Create marked dates object for calendar
   const markedDates = useMemo(() => {

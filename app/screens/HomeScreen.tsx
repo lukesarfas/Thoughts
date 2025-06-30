@@ -10,11 +10,19 @@ import {
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useJournalEntries } from '../hooks/useJournalEntries';
+import { useFocusEffect } from '@react-navigation/native';
 
 export default function HomeScreen({ navigation }: any) {
   const [newEntryText, setNewEntryText] = useState('');
   const [isCreating, setIsCreating] = useState(false);
-  const { entries, loading, error, createEntry } = useJournalEntries();
+  const { entries, loading, error, createEntry, loadEntries } = useJournalEntries();
+
+  // Refresh entries when screen comes into focus
+  useFocusEffect(
+    React.useCallback(() => {
+      loadEntries();
+    }, [loadEntries])
+  );
 
   const handleCreateEntry = async () => {
     if (!newEntryText.trim()) {
