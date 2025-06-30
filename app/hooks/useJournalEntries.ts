@@ -30,23 +30,23 @@ export const useJournalEntries = () => {
     try {
       setError(null);
       const newEntry = await LocalStorageService.createEntry(request);
-      setEntries(prev => [newEntry, ...prev]); // Add to beginning
+      // Entries are already sorted by timestamp in storage, so just reload
+      await loadEntries();
       return newEntry;
     } catch (err) {
       setError('Failed to create entry');
       console.error('Error creating entry:', err);
       throw err;
     }
-  }, []);
+  }, [loadEntries]);
 
   const updateEntry = useCallback(async (id: string, request: UpdateEntryRequest) => {
     try {
       setError(null);
       const updatedEntry = await LocalStorageService.updateEntry(id, request);
       if (updatedEntry) {
-        setEntries(prev => 
-          prev.map(entry => entry.id === id ? updatedEntry : entry)
-        );
+        // Reload entries to maintain consistent ordering
+        await loadEntries();
       }
       return updatedEntry;
     } catch (err) {
@@ -54,14 +54,15 @@ export const useJournalEntries = () => {
       console.error('Error updating entry:', err);
       throw err;
     }
-  }, []);
+  }, [loadEntries]);
 
   const deleteEntry = useCallback(async (id: string) => {
     try {
       setError(null);
       const success = await LocalStorageService.deleteEntry(id);
       if (success) {
-        setEntries(prev => prev.filter(entry => entry.id !== id));
+        // Reload entries to maintain consistent ordering
+        await loadEntries();
       }
       return success;
     } catch (err) {
@@ -69,7 +70,7 @@ export const useJournalEntries = () => {
       console.error('Error deleting entry:', err);
       return false;
     }
-  }, []);
+  }, [loadEntries]);
 
   const getEntryById = useCallback((id: string) => {
     return entries.find(entry => entry.id === id) || null;

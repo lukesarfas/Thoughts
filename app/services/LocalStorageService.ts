@@ -4,11 +4,15 @@ import { Entry, CreateEntryRequest, UpdateEntryRequest } from '../models/Entry';
 const ENTRIES_KEY = 'journal_entries';
 
 export class LocalStorageService {
-  // Get all entries
+  // Get all entries (sorted by timestamp, newest first)
   static async getAllEntries(): Promise<Entry[]> {
     try {
       const entriesJson = await AsyncStorage.getItem(ENTRIES_KEY);
-      return entriesJson ? JSON.parse(entriesJson) : [];
+      const entries = entriesJson ? JSON.parse(entriesJson) : [];
+      // Sort by timestamp descending (newest first)
+      return entries.sort((a: Entry, b: Entry) => 
+        new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime()
+      );
     } catch (error) {
       console.error('Error getting entries:', error);
       return [];
@@ -40,7 +44,8 @@ export class LocalStorageService {
         updatedAt: now,
       };
 
-      entries.push(newEntry);
+      // Add new entry to the beginning of the array
+      entries.unshift(newEntry);
       await AsyncStorage.setItem(ENTRIES_KEY, JSON.stringify(entries));
       
       return newEntry;
