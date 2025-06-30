@@ -15,6 +15,13 @@ import { useFocusEffect } from '@react-navigation/native';
 export default function CalendarScreen({ navigation }: any) {
   const { entries, loading, error, loadEntries } = useJournalEntries();
   const [selectedDate, setSelectedDate] = useState<string>('');
+  const [calendarRef, setCalendarRef] = useState<any>(null);
+
+  // Get today's date in YYYY-MM-DD format
+  const getTodayString = () => {
+    const today = new Date();
+    return today.toISOString().split('T')[0];
+  };
 
   // Refresh entries when screen comes into focus
   useFocusEffect(
@@ -22,6 +29,16 @@ export default function CalendarScreen({ navigation }: any) {
       loadEntries();
     }, [loadEntries])
   );
+
+  // Handle today button press
+  const handleTodayPress = () => {
+    const today = getTodayString();
+    setSelectedDate(today);
+    // Scroll to today's date in the calendar
+    if (calendarRef) {
+      calendarRef.scrollToMonth(today);
+    }
+  };
 
   // Create marked dates object for calendar
   const markedDates = useMemo(() => {
@@ -115,7 +132,15 @@ export default function CalendarScreen({ navigation }: any) {
 
   return (
     <SafeAreaView style={styles.container}>
-      <Text style={styles.title}>Journal Calendar</Text>
+      <View style={styles.header}>
+        <Text style={styles.title}>Journal Calendar</Text>
+        <TouchableOpacity
+          style={styles.todayButton}
+          onPress={handleTodayPress}
+        >
+          <Text style={styles.todayButtonText}>Today</Text>
+        </TouchableOpacity>
+      </View>
       
       {error && (
         <Text style={styles.errorText}>{error}</Text>
@@ -147,6 +172,7 @@ export default function CalendarScreen({ navigation }: any) {
             textMonthFontSize: 18,
             textDayHeaderFontSize: 14,
           }}
+          ref={(ref) => setCalendarRef(ref)}
         />
       </View>
 
@@ -236,12 +262,27 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#f5f5f5',
   },
+  header: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    padding: 10,
+  },
   title: {
     fontSize: 28,
     fontWeight: 'bold',
-    textAlign: 'center',
-    marginVertical: 20,
     color: '#333',
+  },
+  todayButton: {
+    backgroundColor: '#007AFF',
+    paddingVertical: 8,
+    paddingHorizontal: 16,
+    borderRadius: 8,
+  },
+  todayButtonText: {
+    color: 'white',
+    fontSize: 14,
+    fontWeight: '600',
   },
   loadingText: {
     fontSize: 18,
