@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback } from 'react';
-import { API, graphqlOperation } from 'aws-amplify';
+import { API, graphqlOperation, Auth } from 'aws-amplify';
 import * as queries from '../../src/graphql/queries';
 import * as mutations from '../../src/graphql/mutations';
 import { Entry, CreateEntryRequest, UpdateEntryRequest } from '../models/Entry';
@@ -35,12 +35,15 @@ export const useJournalEntries = () => {
   const createEntry = useCallback(async (request: CreateEntryRequest) => {
     try {
       setError(null);
+      const currentUser = await Auth.currentAuthenticatedUser();
       const now = new Date().toISOString();
+      const dateOnly = now.split('T')[0]; // Format as YYYY-MM-DD for AWSDate
+      
       const result: any = await API.graphql(graphqlOperation(mutations.createJournalEntry, {
         input: {
+          userID: currentUser.attributes.sub,
           content: request.text,
-          date: now,
-          // You might need to add userID here based on auth state
+          date: dateOnly,
         }
       }));
       await loadEntries(); // Reload to get the new entry
