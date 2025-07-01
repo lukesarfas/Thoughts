@@ -6,6 +6,8 @@
 > 1. **Story Overview** – one-paragraph description of the problem and desired outcome.
 > 2. **Task Breakdown** – a numbered list of very small, sequential steps that are easy to execute (e.g., "Create component skeleton", "Write unit tests", "Wire API call").
 > 3. **Acceptance Criteria** – bullet list describing what must be true for the feature to be considered complete.
+> 4. **Complexity Review** – After drafting the `.story.md` file and before seeking approval, critically evaluate whether each task is sufficiently granular.  If there is **any chance** the work is still too complex for automated execution, **break it down further** into smaller, easier-to-execute tasks.
+> 5. **Progress Tracking** – Each task and sub-step in the `.story.md` file should be prefixed with an unchecked markdown checkbox (`- [ ]`).  As work progresses, tick the boxes (`- [x]`) to reflect completion.
 >
 > Only after that `.story.md` file is merged and explicitly approved should you proceed with code changes.
 
