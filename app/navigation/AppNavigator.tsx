@@ -5,7 +5,8 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { Auth, Hub } from 'aws-amplify';
 
 import EntryDetailScreen from '../screens/EntryDetailScreen';
-import AuthScreen from '../screens/AuthScreen';
+import SignInScreen from '../screens/SignInScreen';
+import SignUpScreen from '../screens/SignUpScreen';
 import AppTabs from './AppTabs';
 
 const Stack = createNativeStackNavigator();
@@ -24,8 +25,13 @@ const AppNavigator = () => (
 const AuthNavigator = () => (
   <Stack.Navigator>
     <Stack.Screen
-      name="Auth"
-      component={AuthScreen}
+      name="SignIn"
+      component={SignInScreen}
+      options={{ headerShown: false }}
+    />
+    <Stack.Screen
+      name="SignUp"
+      component={SignUpScreen}
       options={{ headerShown: false }}
     />
   </Stack.Navigator>
