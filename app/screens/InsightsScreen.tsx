@@ -93,12 +93,12 @@ export default function InsightsScreen({ route, navigation }: any) {
             <View style={styles.insightsGrid}>
               <View style={styles.insightCard}>
                 <Text style={styles.insightLabel}>Total Entries</Text>
-                <Text style={styles.insightValue}>{insights.totalEntries}</Text>
+                <Text style={styles.insightValue} testID="insights-total-entries">{insights.totalEntries}</Text>
               </View>
               
               <View style={styles.insightCard}>
                 <Text style={styles.insightLabel}>Total Words</Text>
-                <Text style={styles.insightValue}>{insights.totalWords}</Text>
+                <Text style={styles.insightValue} testID="insights-total-words">{insights.totalWords}</Text>
               </View>
               
               <View style={styles.insightCard}>
