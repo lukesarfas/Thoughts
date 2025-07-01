@@ -27,15 +27,15 @@ As a maintainer, I want a robust and **fast** automated test suite for the core 
 
 ### Phase 3: Component Tests (Lightweight & Isolated)
 
-- [ ] **3.1. Create a Perfect Calendar Mock**: Create a new, very lightweight mock for `react-native-calendars` in `__mocks__/react-native-calendars.js`. It must only export the components and types used (`Calendar`, `DateData`) and should render simple, non-interactive elements to avoid memory overhead.
-- [ ] **3.2. Test Simplest UI (InsightsScreen)**: Write a test for `InsightsScreen` (`app/screens/__tests__/InsightsScreen.test.tsx`). This screen has minimal state and is a good candidate for the first UI test. Use the mocked `useJournalEntries` hook.
-- [ ] **3.3. Test HomeScreen**: Write tests for `HomeScreen` (`app/screens/__tests__/HomeScreen.test.tsx`).
-    - [ ] Test that it renders correctly in a loading and non-loading state.
-    - [ ] Test the "create entry" functionality, ensuring all asynchronous user interactions are wrapped in `act()`.
-- [ ] **3.4. Test CalendarScreen**: With the robust mock in place, write tests for `CalendarScreen` (`app/screens/__tests__/CalendarScreen.test.tsx`).
-    - [ ] Test that it renders the mock calendar.
-    - [ ] Test that pressing the mock calendar selects a date and displays the correct entries.
-    - [ ] Test that pressing an entry card calls the navigation function.
+- [x] **3.1. Create a Perfect Calendar Mock**: Create a new, very lightweight mock for `react-native-calendars` in `__mocks__/react-native-calendars.js`. It must only export the components and types used (`Calendar`, `DateData`) and should render simple, non-interactive elements to avoid memory overhead.
+- [x] **3.2. Test Simplest UI (InsightsScreen)**: Write a test for `InsightsScreen` (`app/screens/__tests__/InsightsScreen.test.tsx`). This screen has minimal state and is a good candidate for the first UI test. Use the mocked `useJournalEntries` hook.
+- [x] **3.3. Test HomeScreen**: Write tests for `HomeScreen` (`app/screens/__tests__/HomeScreen.test.tsx`).
+    - [x] Test that it renders correctly in a loading and non-loading state.
+    - [x] Test the "create entry" functionality, ensuring all asynchronous user interactions are wrapped in `act()`.
+- [x] **3.4. Test CalendarScreen**: With the robust mock in place, write tests for `CalendarScreen` (`app/screens/__tests__/CalendarScreen.test.tsx`).
+    - [x] Test that it renders the mock calendar.
+    - [x] Test that pressing the mock calendar selects a date and displays the correct entries.
+    - [x] Test that pressing an entry card calls the navigation function.
 
 ### Phase 4: CI & Finalization
 

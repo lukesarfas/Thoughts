@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useJournalEntries } from '../hooks/useJournalEntries';
+import { wordCount } from '../../src/utils/wordCount';
 
 export default function InsightsScreen({ route, navigation }: any) {
   const { selectedDate } = route?.params || {};
@@ -41,7 +42,7 @@ export default function InsightsScreen({ route, navigation }: any) {
     }
 
     const totalWords = dateEntries.reduce((sum, entry) => {
-      return sum + entry.content.split(' ').length;
+      return sum + wordCount(entry.content);
     }, 0);
 
     const avgWordsPerEntry = Math.round(totalWords / dateEntries.length);
