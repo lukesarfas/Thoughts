@@ -40,7 +40,7 @@ export default function CalendarScreen({ navigation }: any) {
     const marked: any = {};
     
     entries.forEach(entry => {
-      const date = entry.timestamp.split('T')[0];
+      const date = entry.date;
       if (marked[date]) {
         marked[date].dotColor = '#007AFF';
         marked[date].textColor = '#007AFF';
@@ -71,7 +71,7 @@ export default function CalendarScreen({ navigation }: any) {
   const selectedDateEntries = useMemo(() => {
     if (!selectedDate) return [];
     return entries.filter(entry => {
-      const entryDate = entry.timestamp.split('T')[0];
+      const entryDate = entry.date;
       return entryDate === selectedDate;
     });
   }, [entries, selectedDate]);
@@ -99,7 +99,7 @@ export default function CalendarScreen({ navigation }: any) {
 
   const getDateStats = (dateEntries: any[]) => {
     const totalWords = dateEntries.reduce((sum, entry) => {
-      return sum + entry.text.split(' ').length;
+      return sum + entry.content.split(' ').length;
     }, 0);
     
     return {
@@ -217,17 +217,17 @@ export default function CalendarScreen({ navigation }: any) {
                 >
                   <View style={styles.entryHeader}>
                     <Text style={styles.entryTime}>
-                      {formatTime(entry.timestamp)}
+                      {formatTime(entry.createdAt)}
                     </Text>
                     {entry.updatedAt !== entry.createdAt && (
                       <Text style={styles.editedBadge}>Edited</Text>
                     )}
                   </View>
                   <Text style={styles.entryText}>
-                    {truncateText(entry.text)}
+                    {truncateText(entry.content)}
                   </Text>
                   <Text style={styles.wordCount}>
-                    {entry.text.split(' ').length} words
+                    {entry.content.split(' ').length} words
                   </Text>
                 </TouchableOpacity>
               ))}

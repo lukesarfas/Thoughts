@@ -11,7 +11,7 @@ export default function InsightsScreen({ route, navigation }: any) {
   useEffect(() => {
     if (selectedDate) {
       const filteredEntries = entries.filter(entry => {
-        const entryDate = entry.timestamp.split('T')[0];
+        const entryDate = entry.date;
         return entryDate === selectedDate;
       });
       setDateEntries(filteredEntries);
@@ -41,7 +41,7 @@ export default function InsightsScreen({ route, navigation }: any) {
     }
 
     const totalWords = dateEntries.reduce((sum, entry) => {
-      return sum + entry.text.split(' ').length;
+      return sum + entry.content.split(' ').length;
     }, 0);
 
     const avgWordsPerEntry = Math.round(totalWords / dateEntries.length);
@@ -50,7 +50,7 @@ export default function InsightsScreen({ route, navigation }: any) {
     const commonWords = ['today', 'feel', 'think', 'work', 'family', 'friend', 'happy', 'sad', 'good', 'bad'];
     const topics = commonWords.filter(word => 
       dateEntries.some(entry => 
-        entry.text.toLowerCase().includes(word)
+        entry.content.toLowerCase().includes(word)
       )
     ).slice(0, 3);
 

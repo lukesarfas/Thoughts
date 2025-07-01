@@ -9,9 +9,9 @@ export class LocalStorageService {
     try {
       const entriesJson = await AsyncStorage.getItem(ENTRIES_KEY);
       const entries = entriesJson ? JSON.parse(entriesJson) : [];
-      // Sort by timestamp descending (newest first)
+      // Sort by createdAt descending (newest first)
       return entries.sort((a: Entry, b: Entry) => 
-        new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime()
+        new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
       );
     } catch (error) {
       console.error('Error getting entries:', error);
@@ -38,10 +38,12 @@ export class LocalStorageService {
       
       const newEntry: Entry = {
         id: Date.now().toString(),
-        text: request.text,
-        timestamp: now,
+        userID: 'local-user',
+        content: request.text,
+        date: now.split('T')[0],
         createdAt: now,
         updatedAt: now,
+        owner: 'local-user',
       };
 
       // Add new entry to the beginning of the array
@@ -67,7 +69,7 @@ export class LocalStorageService {
 
       entries[entryIndex] = {
         ...entries[entryIndex],
-        text: request.text,
+        content: request.text,
         updatedAt: new Date().toISOString(),
       };
 
@@ -98,7 +100,7 @@ export class LocalStorageService {
     try {
       const entries = await this.getAllEntries();
       return entries.filter(entry => {
-        const entryDate = entry.timestamp.split('T')[0];
+        const entryDate = entry.date;
         return entryDate >= startDate && entryDate <= endDate;
       });
     } catch (error) {

@@ -24,7 +24,7 @@ export default function EntryDetailScreen({ route, navigation }: any) {
       const foundEntry = getEntryById(entryId);
       if (foundEntry) {
         setEntry(foundEntry);
-        setEditedText(foundEntry.text);
+        setEditedText(foundEntry.content);
       } else {
         Alert.alert('Error', 'Entry not found');
         navigation.goBack();
@@ -137,7 +137,7 @@ export default function EntryDetailScreen({ route, navigation }: any) {
                 style={styles.cancelButton}
                 onPress={() => {
                   setIsEditing(false);
-                  setEditedText(entry.text);
+                  setEditedText(entry.content);
                 }}
               >
                 <Text style={styles.cancelButtonText}>Cancel</Text>
@@ -159,7 +159,7 @@ export default function EntryDetailScreen({ route, navigation }: any) {
       <ScrollView style={styles.content}>
         <View style={styles.metadata}>
           <Text style={styles.dateText}>
-            {formatDate(entry.timestamp)}
+            {formatDate(entry.createdAt)}
           </Text>
           {entry.updatedAt !== entry.createdAt && (
             <Text style={styles.editedText}>
@@ -179,16 +179,16 @@ export default function EntryDetailScreen({ route, navigation }: any) {
           />
         ) : (
           <View style={styles.entryContent}>
-            <Text style={styles.entryText}>{entry.text}</Text>
+            <Text style={styles.entryText}>{entry.content}</Text>
           </View>
         )}
 
         <View style={styles.stats}>
           <Text style={styles.statsText}>
-            {entry.text.split(' ').length} words
+            {entry.content.split(' ').length} words
           </Text>
           <Text style={styles.statsText}>
-            {entry.text.length} characters
+            {entry.content.length} characters
           </Text>
         </View>
       </ScrollView>

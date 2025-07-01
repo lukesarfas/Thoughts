@@ -112,10 +112,10 @@ export default function HomeScreen({ navigation }: any) {
                 onPress={() => navigation.navigate('EntryDetail', { entryId: entry.id })}
               >
                 <Text style={styles.entryText}>
-                  {truncateText(entry.text)}
+                  {truncateText(entry.content)}
                 </Text>
                 <Text style={styles.entryDate}>
-                  {formatDate(entry.timestamp)}
+                  {formatDate(entry.createdAt)}
                 </Text>
               </TouchableOpacity>
             ))}
