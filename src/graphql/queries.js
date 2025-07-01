@@ -1,269 +1,6 @@
 /* eslint-disable */
 // this is an auto generated file. This will be overwritten
 
-export const getPlace = /* GraphQL */ `
-  query GetPlace($id: ID!) {
-    getPlace(id: $id) {
-      id
-      name
-      description
-      location
-      visits {
-        nextToken
-        __typename
-      }
-      mentionedInEntries {
-        nextToken
-        __typename
-      }
-      createdAt
-      updatedAt
-      __typename
-    }
-  }
-`;
-export const listPlaces = /* GraphQL */ `
-  query ListPlaces(
-    $filter: ModelPlaceFilterInput
-    $limit: Int
-    $nextToken: String
-  ) {
-    listPlaces(filter: $filter, limit: $limit, nextToken: $nextToken) {
-      items {
-        id
-        name
-        description
-        location
-        createdAt
-        updatedAt
-        __typename
-      }
-      nextToken
-      __typename
-    }
-  }
-`;
-export const getVisitParticipant = /* GraphQL */ `
-  query GetVisitParticipant($id: ID!) {
-    getVisitParticipant(id: $id) {
-      id
-      visitID
-      userID
-      visit {
-        id
-        userID
-        placeID
-        date
-        notes
-        createdAt
-        updatedAt
-        owner
-        __typename
-      }
-      user {
-        id
-        username
-        email
-        createdAt
-        updatedAt
-        owner
-        __typename
-      }
-      createdAt
-      updatedAt
-      __typename
-    }
-  }
-`;
-export const listVisitParticipants = /* GraphQL */ `
-  query ListVisitParticipants(
-    $filter: ModelVisitParticipantFilterInput
-    $limit: Int
-    $nextToken: String
-  ) {
-    listVisitParticipants(
-      filter: $filter
-      limit: $limit
-      nextToken: $nextToken
-    ) {
-      items {
-        id
-        visitID
-        userID
-        createdAt
-        updatedAt
-        __typename
-      }
-      nextToken
-      __typename
-    }
-  }
-`;
-export const getEntryPlace = /* GraphQL */ `
-  query GetEntryPlace($id: ID!) {
-    getEntryPlace(id: $id) {
-      id
-      entryID
-      placeID
-      entry {
-        id
-        userID
-        date
-        content
-        moodTags
-        sentimentScore
-        createdAt
-        updatedAt
-        owner
-        __typename
-      }
-      place {
-        id
-        name
-        description
-        location
-        createdAt
-        updatedAt
-        __typename
-      }
-      createdAt
-      updatedAt
-      __typename
-    }
-  }
-`;
-export const listEntryPlaces = /* GraphQL */ `
-  query ListEntryPlaces(
-    $filter: ModelEntryPlaceFilterInput
-    $limit: Int
-    $nextToken: String
-  ) {
-    listEntryPlaces(filter: $filter, limit: $limit, nextToken: $nextToken) {
-      items {
-        id
-        entryID
-        placeID
-        createdAt
-        updatedAt
-        __typename
-      }
-      nextToken
-      __typename
-    }
-  }
-`;
-export const visitParticipantsByVisitID = /* GraphQL */ `
-  query VisitParticipantsByVisitID(
-    $visitID: ID!
-    $sortDirection: ModelSortDirection
-    $filter: ModelVisitParticipantFilterInput
-    $limit: Int
-    $nextToken: String
-  ) {
-    visitParticipantsByVisitID(
-      visitID: $visitID
-      sortDirection: $sortDirection
-      filter: $filter
-      limit: $limit
-      nextToken: $nextToken
-    ) {
-      items {
-        id
-        visitID
-        userID
-        createdAt
-        updatedAt
-        __typename
-      }
-      nextToken
-      __typename
-    }
-  }
-`;
-export const visitParticipantsByUserID = /* GraphQL */ `
-  query VisitParticipantsByUserID(
-    $userID: ID!
-    $sortDirection: ModelSortDirection
-    $filter: ModelVisitParticipantFilterInput
-    $limit: Int
-    $nextToken: String
-  ) {
-    visitParticipantsByUserID(
-      userID: $userID
-      sortDirection: $sortDirection
-      filter: $filter
-      limit: $limit
-      nextToken: $nextToken
-    ) {
-      items {
-        id
-        visitID
-        userID
-        createdAt
-        updatedAt
-        __typename
-      }
-      nextToken
-      __typename
-    }
-  }
-`;
-export const entryPlacesByEntryID = /* GraphQL */ `
-  query EntryPlacesByEntryID(
-    $entryID: ID!
-    $sortDirection: ModelSortDirection
-    $filter: ModelEntryPlaceFilterInput
-    $limit: Int
-    $nextToken: String
-  ) {
-    entryPlacesByEntryID(
-      entryID: $entryID
-      sortDirection: $sortDirection
-      filter: $filter
-      limit: $limit
-      nextToken: $nextToken
-    ) {
-      items {
-        id
-        entryID
-        placeID
-        createdAt
-        updatedAt
-        __typename
-      }
-      nextToken
-      __typename
-    }
-  }
-`;
-export const entryPlacesByPlaceID = /* GraphQL */ `
-  query EntryPlacesByPlaceID(
-    $placeID: ID!
-    $sortDirection: ModelSortDirection
-    $filter: ModelEntryPlaceFilterInput
-    $limit: Int
-    $nextToken: String
-  ) {
-    entryPlacesByPlaceID(
-      placeID: $placeID
-      sortDirection: $sortDirection
-      filter: $filter
-      limit: $limit
-      nextToken: $nextToken
-    ) {
-      items {
-        id
-        entryID
-        placeID
-        createdAt
-        updatedAt
-        __typename
-      }
-      nextToken
-      __typename
-    }
-  }
-`;
 export const getUser = /* GraphQL */ `
   query GetUser($id: ID!) {
     getUser(id: $id) {
@@ -370,31 +107,41 @@ export const listJournalEntries = /* GraphQL */ `
     }
   }
 `;
-export const journalEntriesByUserID = /* GraphQL */ `
-  query JournalEntriesByUserID(
-    $userID: ID!
-    $sortDirection: ModelSortDirection
-    $filter: ModelJournalEntryFilterInput
+export const getPlace = /* GraphQL */ `
+  query GetPlace($id: ID!) {
+    getPlace(id: $id) {
+      id
+      name
+      description
+      location
+      visits {
+        nextToken
+        __typename
+      }
+      mentionedInEntries {
+        nextToken
+        __typename
+      }
+      createdAt
+      updatedAt
+      __typename
+    }
+  }
+`;
+export const listPlaces = /* GraphQL */ `
+  query ListPlaces(
+    $filter: ModelPlaceFilterInput
     $limit: Int
     $nextToken: String
   ) {
-    journalEntriesByUserID(
-      userID: $userID
-      sortDirection: $sortDirection
-      filter: $filter
-      limit: $limit
-      nextToken: $nextToken
-    ) {
+    listPlaces(filter: $filter, limit: $limit, nextToken: $nextToken) {
       items {
         id
-        userID
-        date
-        content
-        moodTags
-        sentimentScore
+        name
+        description
+        location
         createdAt
         updatedAt
-        owner
         __typename
       }
       nextToken
@@ -434,6 +181,256 @@ export const listVisits = /* GraphQL */ `
         placeID
         date
         notes
+        createdAt
+        updatedAt
+        owner
+        __typename
+      }
+      nextToken
+      __typename
+    }
+  }
+`;
+export const getVisitParticipant = /* GraphQL */ `
+  query GetVisitParticipant($id: ID!) {
+    getVisitParticipant(id: $id) {
+      id
+      visitID
+      userID
+      visit {
+        id
+        userID
+        placeID
+        date
+        notes
+        createdAt
+        updatedAt
+        owner
+        __typename
+      }
+      user {
+        id
+        username
+        email
+        createdAt
+        updatedAt
+        owner
+        __typename
+      }
+      createdAt
+      updatedAt
+      __typename
+    }
+  }
+`;
+export const listVisitParticipants = /* GraphQL */ `
+  query ListVisitParticipants(
+    $filter: ModelVisitParticipantFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listVisitParticipants(
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+    ) {
+      items {
+        id
+        visitID
+        userID
+        createdAt
+        updatedAt
+        __typename
+      }
+      nextToken
+      __typename
+    }
+  }
+`;
+export const getPersonRelation = /* GraphQL */ `
+  query GetPersonRelation($id: ID!) {
+    getPersonRelation(id: $id) {
+      id
+      sourceID
+      targetID
+      relationType
+      source {
+        id
+        username
+        email
+        createdAt
+        updatedAt
+        owner
+        __typename
+      }
+      target {
+        id
+        username
+        email
+        createdAt
+        updatedAt
+        owner
+        __typename
+      }
+      createdAt
+      updatedAt
+      owner
+      __typename
+    }
+  }
+`;
+export const listPersonRelations = /* GraphQL */ `
+  query ListPersonRelations(
+    $filter: ModelPersonRelationFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listPersonRelations(filter: $filter, limit: $limit, nextToken: $nextToken) {
+      items {
+        id
+        sourceID
+        targetID
+        relationType
+        createdAt
+        updatedAt
+        owner
+        __typename
+      }
+      nextToken
+      __typename
+    }
+  }
+`;
+export const getEntryPerson = /* GraphQL */ `
+  query GetEntryPerson($id: ID!) {
+    getEntryPerson(id: $id) {
+      id
+      entryID
+      userID
+      entry {
+        id
+        userID
+        date
+        content
+        moodTags
+        sentimentScore
+        createdAt
+        updatedAt
+        owner
+        __typename
+      }
+      user {
+        id
+        username
+        email
+        createdAt
+        updatedAt
+        owner
+        __typename
+      }
+      createdAt
+      updatedAt
+      owner
+      __typename
+    }
+  }
+`;
+export const listEntryPeople = /* GraphQL */ `
+  query ListEntryPeople(
+    $filter: ModelEntryPersonFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listEntryPeople(filter: $filter, limit: $limit, nextToken: $nextToken) {
+      items {
+        id
+        entryID
+        userID
+        createdAt
+        updatedAt
+        owner
+        __typename
+      }
+      nextToken
+      __typename
+    }
+  }
+`;
+export const getEntryPlace = /* GraphQL */ `
+  query GetEntryPlace($id: ID!) {
+    getEntryPlace(id: $id) {
+      id
+      entryID
+      placeID
+      entry {
+        id
+        userID
+        date
+        content
+        moodTags
+        sentimentScore
+        createdAt
+        updatedAt
+        owner
+        __typename
+      }
+      place {
+        id
+        name
+        description
+        location
+        createdAt
+        updatedAt
+        __typename
+      }
+      createdAt
+      updatedAt
+      __typename
+    }
+  }
+`;
+export const listEntryPlaces = /* GraphQL */ `
+  query ListEntryPlaces(
+    $filter: ModelEntryPlaceFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listEntryPlaces(filter: $filter, limit: $limit, nextToken: $nextToken) {
+      items {
+        id
+        entryID
+        placeID
+        createdAt
+        updatedAt
+        __typename
+      }
+      nextToken
+      __typename
+    }
+  }
+`;
+export const journalEntriesByUserID = /* GraphQL */ `
+  query JournalEntriesByUserID(
+    $userID: ID!
+    $sortDirection: ModelSortDirection
+    $filter: ModelJournalEntryFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    journalEntriesByUserID(
+      userID: $userID
+      sortDirection: $sortDirection
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+    ) {
+      items {
+        id
+        userID
+        date
+        content
+        moodTags
+        sentimentScore
         createdAt
         updatedAt
         owner
@@ -506,53 +503,55 @@ export const visitsByPlaceID = /* GraphQL */ `
     }
   }
 `;
-export const getPersonRelation = /* GraphQL */ `
-  query GetPersonRelation($id: ID!) {
-    getPersonRelation(id: $id) {
-      id
-      sourceID
-      targetID
-      relationType
-      source {
+export const visitParticipantsByVisitID = /* GraphQL */ `
+  query VisitParticipantsByVisitID(
+    $visitID: ID!
+    $sortDirection: ModelSortDirection
+    $filter: ModelVisitParticipantFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    visitParticipantsByVisitID(
+      visitID: $visitID
+      sortDirection: $sortDirection
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+    ) {
+      items {
         id
-        username
-        email
+        visitID
+        userID
         createdAt
         updatedAt
-        owner
         __typename
       }
-      target {
-        id
-        username
-        email
-        createdAt
-        updatedAt
-        owner
-        __typename
-      }
-      createdAt
-      updatedAt
-      owner
+      nextToken
       __typename
     }
   }
 `;
-export const listPersonRelations = /* GraphQL */ `
-  query ListPersonRelations(
-    $filter: ModelPersonRelationFilterInput
+export const visitParticipantsByUserID = /* GraphQL */ `
+  query VisitParticipantsByUserID(
+    $userID: ID!
+    $sortDirection: ModelSortDirection
+    $filter: ModelVisitParticipantFilterInput
     $limit: Int
     $nextToken: String
   ) {
-    listPersonRelations(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    visitParticipantsByUserID(
+      userID: $userID
+      sortDirection: $sortDirection
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+    ) {
       items {
         id
-        sourceID
-        targetID
-        relationType
+        visitID
+        userID
         createdAt
         updatedAt
-        owner
         __typename
       }
       nextToken
@@ -620,61 +619,6 @@ export const personRelationsByTargetID = /* GraphQL */ `
     }
   }
 `;
-export const getEntryPerson = /* GraphQL */ `
-  query GetEntryPerson($id: ID!) {
-    getEntryPerson(id: $id) {
-      id
-      entryID
-      userID
-      entry {
-        id
-        userID
-        date
-        content
-        moodTags
-        sentimentScore
-        createdAt
-        updatedAt
-        owner
-        __typename
-      }
-      user {
-        id
-        username
-        email
-        createdAt
-        updatedAt
-        owner
-        __typename
-      }
-      createdAt
-      updatedAt
-      owner
-      __typename
-    }
-  }
-`;
-export const listEntryPeople = /* GraphQL */ `
-  query ListEntryPeople(
-    $filter: ModelEntryPersonFilterInput
-    $limit: Int
-    $nextToken: String
-  ) {
-    listEntryPeople(filter: $filter, limit: $limit, nextToken: $nextToken) {
-      items {
-        id
-        entryID
-        userID
-        createdAt
-        updatedAt
-        owner
-        __typename
-      }
-      nextToken
-      __typename
-    }
-  }
-`;
 export const entryPeopleByEntryID = /* GraphQL */ `
   query EntryPeopleByEntryID(
     $entryID: ID!
@@ -726,6 +670,62 @@ export const entryPeopleByUserID = /* GraphQL */ `
         createdAt
         updatedAt
         owner
+        __typename
+      }
+      nextToken
+      __typename
+    }
+  }
+`;
+export const entryPlacesByEntryID = /* GraphQL */ `
+  query EntryPlacesByEntryID(
+    $entryID: ID!
+    $sortDirection: ModelSortDirection
+    $filter: ModelEntryPlaceFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    entryPlacesByEntryID(
+      entryID: $entryID
+      sortDirection: $sortDirection
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+    ) {
+      items {
+        id
+        entryID
+        placeID
+        createdAt
+        updatedAt
+        __typename
+      }
+      nextToken
+      __typename
+    }
+  }
+`;
+export const entryPlacesByPlaceID = /* GraphQL */ `
+  query EntryPlacesByPlaceID(
+    $placeID: ID!
+    $sortDirection: ModelSortDirection
+    $filter: ModelEntryPlaceFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    entryPlacesByPlaceID(
+      placeID: $placeID
+      sortDirection: $sortDirection
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+    ) {
+      items {
+        id
+        entryID
+        placeID
+        createdAt
+        updatedAt
         __typename
       }
       nextToken

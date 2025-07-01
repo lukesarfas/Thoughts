@@ -1,291 +1,6 @@
 /* eslint-disable */
 // this is an auto generated file. This will be overwritten
 
-export const createPlace = /* GraphQL */ `
-  mutation CreatePlace(
-    $input: CreatePlaceInput!
-    $condition: ModelPlaceConditionInput
-  ) {
-    createPlace(input: $input, condition: $condition) {
-      id
-      name
-      description
-      location
-      visits {
-        nextToken
-        __typename
-      }
-      mentionedInEntries {
-        nextToken
-        __typename
-      }
-      createdAt
-      updatedAt
-      __typename
-    }
-  }
-`;
-export const updatePlace = /* GraphQL */ `
-  mutation UpdatePlace(
-    $input: UpdatePlaceInput!
-    $condition: ModelPlaceConditionInput
-  ) {
-    updatePlace(input: $input, condition: $condition) {
-      id
-      name
-      description
-      location
-      visits {
-        nextToken
-        __typename
-      }
-      mentionedInEntries {
-        nextToken
-        __typename
-      }
-      createdAt
-      updatedAt
-      __typename
-    }
-  }
-`;
-export const deletePlace = /* GraphQL */ `
-  mutation DeletePlace(
-    $input: DeletePlaceInput!
-    $condition: ModelPlaceConditionInput
-  ) {
-    deletePlace(input: $input, condition: $condition) {
-      id
-      name
-      description
-      location
-      visits {
-        nextToken
-        __typename
-      }
-      mentionedInEntries {
-        nextToken
-        __typename
-      }
-      createdAt
-      updatedAt
-      __typename
-    }
-  }
-`;
-export const createVisitParticipant = /* GraphQL */ `
-  mutation CreateVisitParticipant(
-    $input: CreateVisitParticipantInput!
-    $condition: ModelVisitParticipantConditionInput
-  ) {
-    createVisitParticipant(input: $input, condition: $condition) {
-      id
-      visitID
-      userID
-      visit {
-        id
-        userID
-        placeID
-        date
-        notes
-        createdAt
-        updatedAt
-        owner
-        __typename
-      }
-      user {
-        id
-        username
-        email
-        createdAt
-        updatedAt
-        owner
-        __typename
-      }
-      createdAt
-      updatedAt
-      __typename
-    }
-  }
-`;
-export const updateVisitParticipant = /* GraphQL */ `
-  mutation UpdateVisitParticipant(
-    $input: UpdateVisitParticipantInput!
-    $condition: ModelVisitParticipantConditionInput
-  ) {
-    updateVisitParticipant(input: $input, condition: $condition) {
-      id
-      visitID
-      userID
-      visit {
-        id
-        userID
-        placeID
-        date
-        notes
-        createdAt
-        updatedAt
-        owner
-        __typename
-      }
-      user {
-        id
-        username
-        email
-        createdAt
-        updatedAt
-        owner
-        __typename
-      }
-      createdAt
-      updatedAt
-      __typename
-    }
-  }
-`;
-export const deleteVisitParticipant = /* GraphQL */ `
-  mutation DeleteVisitParticipant(
-    $input: DeleteVisitParticipantInput!
-    $condition: ModelVisitParticipantConditionInput
-  ) {
-    deleteVisitParticipant(input: $input, condition: $condition) {
-      id
-      visitID
-      userID
-      visit {
-        id
-        userID
-        placeID
-        date
-        notes
-        createdAt
-        updatedAt
-        owner
-        __typename
-      }
-      user {
-        id
-        username
-        email
-        createdAt
-        updatedAt
-        owner
-        __typename
-      }
-      createdAt
-      updatedAt
-      __typename
-    }
-  }
-`;
-export const createEntryPlace = /* GraphQL */ `
-  mutation CreateEntryPlace(
-    $input: CreateEntryPlaceInput!
-    $condition: ModelEntryPlaceConditionInput
-  ) {
-    createEntryPlace(input: $input, condition: $condition) {
-      id
-      entryID
-      placeID
-      entry {
-        id
-        userID
-        date
-        content
-        moodTags
-        sentimentScore
-        createdAt
-        updatedAt
-        owner
-        __typename
-      }
-      place {
-        id
-        name
-        description
-        location
-        createdAt
-        updatedAt
-        __typename
-      }
-      createdAt
-      updatedAt
-      __typename
-    }
-  }
-`;
-export const updateEntryPlace = /* GraphQL */ `
-  mutation UpdateEntryPlace(
-    $input: UpdateEntryPlaceInput!
-    $condition: ModelEntryPlaceConditionInput
-  ) {
-    updateEntryPlace(input: $input, condition: $condition) {
-      id
-      entryID
-      placeID
-      entry {
-        id
-        userID
-        date
-        content
-        moodTags
-        sentimentScore
-        createdAt
-        updatedAt
-        owner
-        __typename
-      }
-      place {
-        id
-        name
-        description
-        location
-        createdAt
-        updatedAt
-        __typename
-      }
-      createdAt
-      updatedAt
-      __typename
-    }
-  }
-`;
-export const deleteEntryPlace = /* GraphQL */ `
-  mutation DeleteEntryPlace(
-    $input: DeleteEntryPlaceInput!
-    $condition: ModelEntryPlaceConditionInput
-  ) {
-    deleteEntryPlace(input: $input, condition: $condition) {
-      id
-      entryID
-      placeID
-      entry {
-        id
-        userID
-        date
-        content
-        moodTags
-        sentimentScore
-        createdAt
-        updatedAt
-        owner
-        __typename
-      }
-      place {
-        id
-        name
-        description
-        location
-        createdAt
-        updatedAt
-        __typename
-      }
-      createdAt
-      updatedAt
-      __typename
-    }
-  }
-`;
 export const createUser = /* GraphQL */ `
   mutation CreateUser(
     $input: CreateUserInput!
@@ -487,6 +202,78 @@ export const deleteJournalEntry = /* GraphQL */ `
     }
   }
 `;
+export const createPlace = /* GraphQL */ `
+  mutation CreatePlace(
+    $input: CreatePlaceInput!
+    $condition: ModelPlaceConditionInput
+  ) {
+    createPlace(input: $input, condition: $condition) {
+      id
+      name
+      description
+      location
+      visits {
+        nextToken
+        __typename
+      }
+      mentionedInEntries {
+        nextToken
+        __typename
+      }
+      createdAt
+      updatedAt
+      __typename
+    }
+  }
+`;
+export const updatePlace = /* GraphQL */ `
+  mutation UpdatePlace(
+    $input: UpdatePlaceInput!
+    $condition: ModelPlaceConditionInput
+  ) {
+    updatePlace(input: $input, condition: $condition) {
+      id
+      name
+      description
+      location
+      visits {
+        nextToken
+        __typename
+      }
+      mentionedInEntries {
+        nextToken
+        __typename
+      }
+      createdAt
+      updatedAt
+      __typename
+    }
+  }
+`;
+export const deletePlace = /* GraphQL */ `
+  mutation DeletePlace(
+    $input: DeletePlaceInput!
+    $condition: ModelPlaceConditionInput
+  ) {
+    deletePlace(input: $input, condition: $condition) {
+      id
+      name
+      description
+      location
+      visits {
+        nextToken
+        __typename
+      }
+      mentionedInEntries {
+        nextToken
+        __typename
+      }
+      createdAt
+      updatedAt
+      __typename
+    }
+  }
+`;
 export const createVisit = /* GraphQL */ `
   mutation CreateVisit(
     $input: CreateVisitInput!
@@ -549,6 +336,111 @@ export const deleteVisit = /* GraphQL */ `
       createdAt
       updatedAt
       owner
+      __typename
+    }
+  }
+`;
+export const createVisitParticipant = /* GraphQL */ `
+  mutation CreateVisitParticipant(
+    $input: CreateVisitParticipantInput!
+    $condition: ModelVisitParticipantConditionInput
+  ) {
+    createVisitParticipant(input: $input, condition: $condition) {
+      id
+      visitID
+      userID
+      visit {
+        id
+        userID
+        placeID
+        date
+        notes
+        createdAt
+        updatedAt
+        owner
+        __typename
+      }
+      user {
+        id
+        username
+        email
+        createdAt
+        updatedAt
+        owner
+        __typename
+      }
+      createdAt
+      updatedAt
+      __typename
+    }
+  }
+`;
+export const updateVisitParticipant = /* GraphQL */ `
+  mutation UpdateVisitParticipant(
+    $input: UpdateVisitParticipantInput!
+    $condition: ModelVisitParticipantConditionInput
+  ) {
+    updateVisitParticipant(input: $input, condition: $condition) {
+      id
+      visitID
+      userID
+      visit {
+        id
+        userID
+        placeID
+        date
+        notes
+        createdAt
+        updatedAt
+        owner
+        __typename
+      }
+      user {
+        id
+        username
+        email
+        createdAt
+        updatedAt
+        owner
+        __typename
+      }
+      createdAt
+      updatedAt
+      __typename
+    }
+  }
+`;
+export const deleteVisitParticipant = /* GraphQL */ `
+  mutation DeleteVisitParticipant(
+    $input: DeleteVisitParticipantInput!
+    $condition: ModelVisitParticipantConditionInput
+  ) {
+    deleteVisitParticipant(input: $input, condition: $condition) {
+      id
+      visitID
+      userID
+      visit {
+        id
+        userID
+        placeID
+        date
+        notes
+        createdAt
+        updatedAt
+        owner
+        __typename
+      }
+      user {
+        id
+        username
+        email
+        createdAt
+        updatedAt
+        owner
+        __typename
+      }
+      createdAt
+      updatedAt
       __typename
     }
   }
@@ -765,6 +657,114 @@ export const deleteEntryPerson = /* GraphQL */ `
       createdAt
       updatedAt
       owner
+      __typename
+    }
+  }
+`;
+export const createEntryPlace = /* GraphQL */ `
+  mutation CreateEntryPlace(
+    $input: CreateEntryPlaceInput!
+    $condition: ModelEntryPlaceConditionInput
+  ) {
+    createEntryPlace(input: $input, condition: $condition) {
+      id
+      entryID
+      placeID
+      entry {
+        id
+        userID
+        date
+        content
+        moodTags
+        sentimentScore
+        createdAt
+        updatedAt
+        owner
+        __typename
+      }
+      place {
+        id
+        name
+        description
+        location
+        createdAt
+        updatedAt
+        __typename
+      }
+      createdAt
+      updatedAt
+      __typename
+    }
+  }
+`;
+export const updateEntryPlace = /* GraphQL */ `
+  mutation UpdateEntryPlace(
+    $input: UpdateEntryPlaceInput!
+    $condition: ModelEntryPlaceConditionInput
+  ) {
+    updateEntryPlace(input: $input, condition: $condition) {
+      id
+      entryID
+      placeID
+      entry {
+        id
+        userID
+        date
+        content
+        moodTags
+        sentimentScore
+        createdAt
+        updatedAt
+        owner
+        __typename
+      }
+      place {
+        id
+        name
+        description
+        location
+        createdAt
+        updatedAt
+        __typename
+      }
+      createdAt
+      updatedAt
+      __typename
+    }
+  }
+`;
+export const deleteEntryPlace = /* GraphQL */ `
+  mutation DeleteEntryPlace(
+    $input: DeleteEntryPlaceInput!
+    $condition: ModelEntryPlaceConditionInput
+  ) {
+    deleteEntryPlace(input: $input, condition: $condition) {
+      id
+      entryID
+      placeID
+      entry {
+        id
+        userID
+        date
+        content
+        moodTags
+        sentimentScore
+        createdAt
+        updatedAt
+        owner
+        __typename
+      }
+      place {
+        id
+        name
+        description
+        location
+        createdAt
+        updatedAt
+        __typename
+      }
+      createdAt
+      updatedAt
       __typename
     }
   }

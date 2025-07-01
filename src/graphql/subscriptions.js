@@ -1,276 +1,6 @@
 /* eslint-disable */
 // this is an auto generated file. This will be overwritten
 
-export const onCreatePlace = /* GraphQL */ `
-  subscription OnCreatePlace($filter: ModelSubscriptionPlaceFilterInput) {
-    onCreatePlace(filter: $filter) {
-      id
-      name
-      description
-      location
-      visits {
-        nextToken
-        __typename
-      }
-      mentionedInEntries {
-        nextToken
-        __typename
-      }
-      createdAt
-      updatedAt
-      __typename
-    }
-  }
-`;
-export const onUpdatePlace = /* GraphQL */ `
-  subscription OnUpdatePlace($filter: ModelSubscriptionPlaceFilterInput) {
-    onUpdatePlace(filter: $filter) {
-      id
-      name
-      description
-      location
-      visits {
-        nextToken
-        __typename
-      }
-      mentionedInEntries {
-        nextToken
-        __typename
-      }
-      createdAt
-      updatedAt
-      __typename
-    }
-  }
-`;
-export const onDeletePlace = /* GraphQL */ `
-  subscription OnDeletePlace($filter: ModelSubscriptionPlaceFilterInput) {
-    onDeletePlace(filter: $filter) {
-      id
-      name
-      description
-      location
-      visits {
-        nextToken
-        __typename
-      }
-      mentionedInEntries {
-        nextToken
-        __typename
-      }
-      createdAt
-      updatedAt
-      __typename
-    }
-  }
-`;
-export const onCreateVisitParticipant = /* GraphQL */ `
-  subscription OnCreateVisitParticipant(
-    $filter: ModelSubscriptionVisitParticipantFilterInput
-  ) {
-    onCreateVisitParticipant(filter: $filter) {
-      id
-      visitID
-      userID
-      visit {
-        id
-        userID
-        placeID
-        date
-        notes
-        createdAt
-        updatedAt
-        owner
-        __typename
-      }
-      user {
-        id
-        username
-        email
-        createdAt
-        updatedAt
-        owner
-        __typename
-      }
-      createdAt
-      updatedAt
-      __typename
-    }
-  }
-`;
-export const onUpdateVisitParticipant = /* GraphQL */ `
-  subscription OnUpdateVisitParticipant(
-    $filter: ModelSubscriptionVisitParticipantFilterInput
-  ) {
-    onUpdateVisitParticipant(filter: $filter) {
-      id
-      visitID
-      userID
-      visit {
-        id
-        userID
-        placeID
-        date
-        notes
-        createdAt
-        updatedAt
-        owner
-        __typename
-      }
-      user {
-        id
-        username
-        email
-        createdAt
-        updatedAt
-        owner
-        __typename
-      }
-      createdAt
-      updatedAt
-      __typename
-    }
-  }
-`;
-export const onDeleteVisitParticipant = /* GraphQL */ `
-  subscription OnDeleteVisitParticipant(
-    $filter: ModelSubscriptionVisitParticipantFilterInput
-  ) {
-    onDeleteVisitParticipant(filter: $filter) {
-      id
-      visitID
-      userID
-      visit {
-        id
-        userID
-        placeID
-        date
-        notes
-        createdAt
-        updatedAt
-        owner
-        __typename
-      }
-      user {
-        id
-        username
-        email
-        createdAt
-        updatedAt
-        owner
-        __typename
-      }
-      createdAt
-      updatedAt
-      __typename
-    }
-  }
-`;
-export const onCreateEntryPlace = /* GraphQL */ `
-  subscription OnCreateEntryPlace(
-    $filter: ModelSubscriptionEntryPlaceFilterInput
-  ) {
-    onCreateEntryPlace(filter: $filter) {
-      id
-      entryID
-      placeID
-      entry {
-        id
-        userID
-        date
-        content
-        moodTags
-        sentimentScore
-        createdAt
-        updatedAt
-        owner
-        __typename
-      }
-      place {
-        id
-        name
-        description
-        location
-        createdAt
-        updatedAt
-        __typename
-      }
-      createdAt
-      updatedAt
-      __typename
-    }
-  }
-`;
-export const onUpdateEntryPlace = /* GraphQL */ `
-  subscription OnUpdateEntryPlace(
-    $filter: ModelSubscriptionEntryPlaceFilterInput
-  ) {
-    onUpdateEntryPlace(filter: $filter) {
-      id
-      entryID
-      placeID
-      entry {
-        id
-        userID
-        date
-        content
-        moodTags
-        sentimentScore
-        createdAt
-        updatedAt
-        owner
-        __typename
-      }
-      place {
-        id
-        name
-        description
-        location
-        createdAt
-        updatedAt
-        __typename
-      }
-      createdAt
-      updatedAt
-      __typename
-    }
-  }
-`;
-export const onDeleteEntryPlace = /* GraphQL */ `
-  subscription OnDeleteEntryPlace(
-    $filter: ModelSubscriptionEntryPlaceFilterInput
-  ) {
-    onDeleteEntryPlace(filter: $filter) {
-      id
-      entryID
-      placeID
-      entry {
-        id
-        userID
-        date
-        content
-        moodTags
-        sentimentScore
-        createdAt
-        updatedAt
-        owner
-        __typename
-      }
-      place {
-        id
-        name
-        description
-        location
-        createdAt
-        updatedAt
-        __typename
-      }
-      createdAt
-      updatedAt
-      __typename
-    }
-  }
-`;
 export const onCreateUser = /* GraphQL */ `
   subscription OnCreateUser(
     $filter: ModelSubscriptionUserFilterInput
@@ -472,6 +202,69 @@ export const onDeleteJournalEntry = /* GraphQL */ `
     }
   }
 `;
+export const onCreatePlace = /* GraphQL */ `
+  subscription OnCreatePlace($filter: ModelSubscriptionPlaceFilterInput) {
+    onCreatePlace(filter: $filter) {
+      id
+      name
+      description
+      location
+      visits {
+        nextToken
+        __typename
+      }
+      mentionedInEntries {
+        nextToken
+        __typename
+      }
+      createdAt
+      updatedAt
+      __typename
+    }
+  }
+`;
+export const onUpdatePlace = /* GraphQL */ `
+  subscription OnUpdatePlace($filter: ModelSubscriptionPlaceFilterInput) {
+    onUpdatePlace(filter: $filter) {
+      id
+      name
+      description
+      location
+      visits {
+        nextToken
+        __typename
+      }
+      mentionedInEntries {
+        nextToken
+        __typename
+      }
+      createdAt
+      updatedAt
+      __typename
+    }
+  }
+`;
+export const onDeletePlace = /* GraphQL */ `
+  subscription OnDeletePlace($filter: ModelSubscriptionPlaceFilterInput) {
+    onDeletePlace(filter: $filter) {
+      id
+      name
+      description
+      location
+      visits {
+        nextToken
+        __typename
+      }
+      mentionedInEntries {
+        nextToken
+        __typename
+      }
+      createdAt
+      updatedAt
+      __typename
+    }
+  }
+`;
 export const onCreateVisit = /* GraphQL */ `
   subscription OnCreateVisit(
     $filter: ModelSubscriptionVisitFilterInput
@@ -534,6 +327,108 @@ export const onDeleteVisit = /* GraphQL */ `
       createdAt
       updatedAt
       owner
+      __typename
+    }
+  }
+`;
+export const onCreateVisitParticipant = /* GraphQL */ `
+  subscription OnCreateVisitParticipant(
+    $filter: ModelSubscriptionVisitParticipantFilterInput
+  ) {
+    onCreateVisitParticipant(filter: $filter) {
+      id
+      visitID
+      userID
+      visit {
+        id
+        userID
+        placeID
+        date
+        notes
+        createdAt
+        updatedAt
+        owner
+        __typename
+      }
+      user {
+        id
+        username
+        email
+        createdAt
+        updatedAt
+        owner
+        __typename
+      }
+      createdAt
+      updatedAt
+      __typename
+    }
+  }
+`;
+export const onUpdateVisitParticipant = /* GraphQL */ `
+  subscription OnUpdateVisitParticipant(
+    $filter: ModelSubscriptionVisitParticipantFilterInput
+  ) {
+    onUpdateVisitParticipant(filter: $filter) {
+      id
+      visitID
+      userID
+      visit {
+        id
+        userID
+        placeID
+        date
+        notes
+        createdAt
+        updatedAt
+        owner
+        __typename
+      }
+      user {
+        id
+        username
+        email
+        createdAt
+        updatedAt
+        owner
+        __typename
+      }
+      createdAt
+      updatedAt
+      __typename
+    }
+  }
+`;
+export const onDeleteVisitParticipant = /* GraphQL */ `
+  subscription OnDeleteVisitParticipant(
+    $filter: ModelSubscriptionVisitParticipantFilterInput
+  ) {
+    onDeleteVisitParticipant(filter: $filter) {
+      id
+      visitID
+      userID
+      visit {
+        id
+        userID
+        placeID
+        date
+        notes
+        createdAt
+        updatedAt
+        owner
+        __typename
+      }
+      user {
+        id
+        username
+        email
+        createdAt
+        updatedAt
+        owner
+        __typename
+      }
+      createdAt
+      updatedAt
       __typename
     }
   }
@@ -750,6 +645,111 @@ export const onDeleteEntryPerson = /* GraphQL */ `
       createdAt
       updatedAt
       owner
+      __typename
+    }
+  }
+`;
+export const onCreateEntryPlace = /* GraphQL */ `
+  subscription OnCreateEntryPlace(
+    $filter: ModelSubscriptionEntryPlaceFilterInput
+  ) {
+    onCreateEntryPlace(filter: $filter) {
+      id
+      entryID
+      placeID
+      entry {
+        id
+        userID
+        date
+        content
+        moodTags
+        sentimentScore
+        createdAt
+        updatedAt
+        owner
+        __typename
+      }
+      place {
+        id
+        name
+        description
+        location
+        createdAt
+        updatedAt
+        __typename
+      }
+      createdAt
+      updatedAt
+      __typename
+    }
+  }
+`;
+export const onUpdateEntryPlace = /* GraphQL */ `
+  subscription OnUpdateEntryPlace(
+    $filter: ModelSubscriptionEntryPlaceFilterInput
+  ) {
+    onUpdateEntryPlace(filter: $filter) {
+      id
+      entryID
+      placeID
+      entry {
+        id
+        userID
+        date
+        content
+        moodTags
+        sentimentScore
+        createdAt
+        updatedAt
+        owner
+        __typename
+      }
+      place {
+        id
+        name
+        description
+        location
+        createdAt
+        updatedAt
+        __typename
+      }
+      createdAt
+      updatedAt
+      __typename
+    }
+  }
+`;
+export const onDeleteEntryPlace = /* GraphQL */ `
+  subscription OnDeleteEntryPlace(
+    $filter: ModelSubscriptionEntryPlaceFilterInput
+  ) {
+    onDeleteEntryPlace(filter: $filter) {
+      id
+      entryID
+      placeID
+      entry {
+        id
+        userID
+        date
+        content
+        moodTags
+        sentimentScore
+        createdAt
+        updatedAt
+        owner
+        __typename
+      }
+      place {
+        id
+        name
+        description
+        location
+        createdAt
+        updatedAt
+        __typename
+      }
+      createdAt
+      updatedAt
       __typename
     }
   }

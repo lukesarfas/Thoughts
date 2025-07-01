@@ -1,14 +1,19 @@
 import 'react-native-gesture-handler';
 import React from 'react';
-import { StatusBar } from 'expo-status-bar';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
-import AppNavigator from './app/navigation/AppNavigator';
+import { Amplify } from 'aws-amplify';
 
-export default function App() {
+import AppNavigator from './app/navigation/AppNavigator';
+import config from './src/amplifyconfiguration.json';
+
+Amplify.configure(config);
+
+function App() {
   return (
     <SafeAreaProvider>
-      <StatusBar style="auto" />
       <AppNavigator />
     </SafeAreaProvider>
   );
-} 
+}
+
+export default App; 

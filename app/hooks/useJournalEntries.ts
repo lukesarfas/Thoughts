@@ -1,23 +1,25 @@
 import { useState, useEffect, useCallback } from 'react';
+import { API, graphqlOperation } from 'aws-amplify';
+import * as queries from '../../src/graphql/queries';
+import * as mutations from '../../src/graphql/mutations';
 import { Entry, CreateEntryRequest, UpdateEntryRequest } from '../models/Entry';
-import { LocalStorageService } from '../services/LocalStorageService';
 
 export const useJournalEntries = () => {
   const [entries, setEntries] = useState<Entry[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
-  // Load all entries on mount
-  useEffect(() => {
-    loadEntries();
-  }, []);
-
   const loadEntries = useCallback(async () => {
     try {
       setLoading(true);
       setError(null);
-      const allEntries = await LocalStorageService.getAllEntries();
-      setEntries(allEntries);
+      const result: any = await API.graphql(graphqlOperation(queries.listJournalEntries));
+      const entriesFromCloud = result.data?.listJournalEntries?.items || [];
+      // Sort by timestamp descending (newest first)
+      const sortedEntries = entriesFromCloud.sort((a: Entry, b: Entry) => 
+        new Date(b.date).getTime() - new Date(a.date).getTime()
+      );
+      setEntries(sortedEntries);
     } catch (err) {
       setError('Failed to load entries');
       console.error('Error loading entries:', err);
@@ -26,13 +28,23 @@ export const useJournalEntries = () => {
     }
   }, []);
 
+  useEffect(() => {
+    loadEntries();
+  }, [loadEntries]);
+
   const createEntry = useCallback(async (request: CreateEntryRequest) => {
     try {
       setError(null);
-      const newEntry = await LocalStorageService.createEntry(request);
-      // Entries are already sorted by timestamp in storage, so just reload
-      await loadEntries();
-      return newEntry;
+      const now = new Date().toISOString();
+      const result: any = await API.graphql(graphqlOperation(mutations.createJournalEntry, {
+        input: {
+          content: request.text,
+          date: now,
+          // You might need to add userID here based on auth state
+        }
+      }));
+      await loadEntries(); // Reload to get the new entry
+      return result.data?.createJournalEntry;
     } catch (err) {
       setError('Failed to create entry');
       console.error('Error creating entry:', err);
@@ -43,12 +55,14 @@ export const useJournalEntries = () => {
   const updateEntry = useCallback(async (id: string, request: UpdateEntryRequest) => {
     try {
       setError(null);
-      const updatedEntry = await LocalStorageService.updateEntry(id, request);
-      if (updatedEntry) {
-        // Reload entries to maintain consistent ordering
-        await loadEntries();
-      }
-      return updatedEntry;
+      const result: any = await API.graphql(graphqlOperation(mutations.updateJournalEntry, {
+        input: {
+          id: id,
+          content: request.text,
+        }
+      }));
+      await loadEntries(); // Reload to get the updated entry
+      return result.data?.updateJournalEntry;
     } catch (err) {
       setError('Failed to update entry');
       console.error('Error updating entry:', err);
@@ -59,40 +73,28 @@ export const useJournalEntries = () => {
   const deleteEntry = useCallback(async (id: string) => {
     try {
       setError(null);
-      const success = await LocalStorageService.deleteEntry(id);
-      if (success) {
-        // Reload entries to maintain consistent ordering
-        await loadEntries();
-      }
-      return success;
+      await API.graphql(graphqlOperation(mutations.deleteJournalEntry, {
+        input: { id: id }
+      }));
+      await loadEntries(); // Reload to remove the deleted entry
+      return true;
     } catch (err) {
       setError('Failed to delete entry');
       console.error('Error deleting entry:', err);
       return false;
     }
   }, [loadEntries]);
-
+  
   const getEntryById = useCallback((id: string) => {
     return entries.find(entry => entry.id === id) || null;
   }, [entries]);
 
   const getEntriesByDate = useCallback((date: string) => {
     return entries.filter(entry => {
-      const entryDate = entry.timestamp.split('T')[0];
+      const entryDate = entry.date.split('T')[0];
       return entryDate === date;
     });
   }, [entries]);
-
-  const clearAllEntries = useCallback(async () => {
-    try {
-      setError(null);
-      await LocalStorageService.clearAllEntries();
-      setEntries([]);
-    } catch (err) {
-      setError('Failed to clear entries');
-      console.error('Error clearing entries:', err);
-    }
-  }, []);
 
   return {
     entries,
@@ -104,6 +106,5 @@ export const useJournalEntries = () => {
     getEntryById,
     getEntriesByDate,
     loadEntries,
-    clearAllEntries,
   };
 }; 

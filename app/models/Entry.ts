@@ -1,7 +1,7 @@
 export interface Entry {
   id: string;
-  text: string;
-  timestamp: string;
+  content: string;
+  date: string;
   createdAt: string;
   updatedAt: string;
 }

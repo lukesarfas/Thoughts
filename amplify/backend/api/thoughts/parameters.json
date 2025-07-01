@@ -7,5 +7,6 @@
       "auththoughts0275adee",
       "Outputs.UserPoolId"
     ]
-  }
+  },
+  "APIKeyExpirationEpoch": "0"
 }
