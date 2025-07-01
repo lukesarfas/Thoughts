@@ -67,5 +67,5 @@ As a maintainer, I want to refactor the existing test suite to be more robust, m
 ---
 
 ### **Phase 5.4: Finalization**
-- [ ] **Step 5.4.1. Final Review**: Ensure all tests pass, there are no `act()` warnings, and the total runtime is reasonable.
-- [ ] **Step 5.4.2. Update this Story**: Mark all checkboxes as complete. 
+- [x] **Step 5.4.1. Final Review**: Ensure all tests pass, there are no `act()` warnings, and the total runtime is reasonable.
+- [x] **Step 5.4.2. Update this Story**: Mark all checkboxes as complete. 
