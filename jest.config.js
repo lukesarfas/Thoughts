@@ -12,4 +12,8 @@ module.exports = {
       statements: 0,
     },
   },
+  coveragePathIgnorePatterns: [
+    '/node_modules/',
+    '<rootDir>/app/screens',
+  ],
 }; 
