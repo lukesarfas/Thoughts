@@ -14,6 +14,5 @@ module.exports = {
   },
   coveragePathIgnorePatterns: [
     '/node_modules/',
-    '<rootDir>/app/screens',
   ],
 }; 
