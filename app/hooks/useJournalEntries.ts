@@ -4,6 +4,27 @@ import * as queries from '../../src/graphql/queries';
 import * as mutations from '../../src/graphql/mutations';
 import { Entry, CreateEntryRequest, UpdateEntryRequest } from '../models/Entry';
 
+// Custom mutation that only requests basic fields to avoid authorization issues
+const CREATE_JOURNAL_ENTRY = /* GraphQL */ `
+  mutation CreateJournalEntry(
+    $input: CreateJournalEntryInput!
+    $condition: ModelJournalEntryConditionInput
+  ) {
+    createJournalEntry(input: $input, condition: $condition) {
+      id
+      userID
+      date
+      content
+      moodTags
+      sentimentScore
+      createdAt
+      updatedAt
+      owner
+      __typename
+    }
+  }
+`;
+
 export const useJournalEntries = () => {
   const [entries, setEntries] = useState<Entry[]>([]);
   const [loading, setLoading] = useState(true);
@@ -39,7 +60,7 @@ export const useJournalEntries = () => {
       const now = new Date().toISOString();
       const dateOnly = now.split('T')[0]; // Format as YYYY-MM-DD for AWSDate
       
-      const result: any = await API.graphql(graphqlOperation(mutations.createJournalEntry, {
+      const result: any = await API.graphql(graphqlOperation(CREATE_JOURNAL_ENTRY, {
         input: {
           userID: currentUser.attributes.sub,
           content: request.text,
