@@ -1,56 +1,55 @@
-# Story: Implement Automated Test Suite
+# Story: Implement a Lightweight & Powerful Automated Test Suite
 
 ## Story Overview
 
-As a maintainer, I want robust automated tests for the core journaling features so that future code changes are safe and regressions are caught early.  The test suite should run locally and in CI, covering hooks, utilities, and key screens while remaining fast and deterministic.
+As a maintainer, I want a robust and **fast** automated test suite for the core journaling features. The previous attempts resulted in a slow, memory-intensive suite that was difficult to debug. This story resets the approach to build a lightweight, deterministic, and powerful testing foundation from the ground up, with a strict order of operations to ensure stability at each step.
 
-## Task Breakdown (Granular)
+## Known Issues Encountered (to be resolved by this new approach)
 
-### 1. Set Up Testing Environment
-- [x] Add dev dependencies (listed in `package.json`).
-- [x] Create `jest.config.js` with React-Native preset and transform ignore patterns.
-- [x] Create `jest.setup.ts` that imports `@testing-library/jest-native/extend-expect`.
-- [x] Add `"test"` and `"test:watch"` scripts to `package.json`.
+- **Hanging Runtime & Out-of-Memory Crashes**: The test suite became unacceptably slow and frequently crashed with "JavaScript heap out of memory" errors. This was likely due to improperly mocked heavy components (like `react-native-calendars`) being rendered in the test environment.
+- **Flaky Asynchronous Tests**: Tests involving state updates were inconsistent and produced `act(...)` warnings. This points to improper handling of asynchronous operations during testing.
 
-### 2. Provide Mocks & Polyfills
-- [x] Add `__mocks__/@react-native-async-storage/async-storage.js` stub.
-- [x] Add mocks for `react-native-reanimated`, `react-native-gesture-handler`, and navigation helpers.
-- [x] Verify `jest` can run a trivial test without red screen.
+## New Task Breakdown (Strictly Ordered)
 
-### 3. Unit Tests – Hooks & Utilities
-- [x] Create `app/hooks/__tests__/useJournalEntries.test.ts` covering create/update/delete.
-- [x] Create `src/utils/__tests__/wordCount.test.ts` – verifies word-count helper.
+*This plan must be followed in the exact order specified. Do not proceed to a step until the previous one is complete and verified.*
 
-### 4. Component Tests – Screens
-- [x] HomeScreen – renders recent entries list.
-- [ ] HomeScreen – creates new entry via input + button.
-- [x] CalendarScreen – renders and displays instructions.
-- [ ] CalendarScreen – navigates to EntryDetail on press.
-- [ ] InsightsScreen – shows correct word count stats for mock data.
+### Phase 1: Foundation & Cleanup
 
-### 5. Coverage & Lint Gates
-- [x] Add `collectCoverage` and threshold (temporary) to `jest.config.js`.
-- [ ] Ensure ESLint passes by running `npm run lint` inside tests job.
+- [x] **1.1. Reset Configuration**: Remove the `NODE_OPTIONS` memory flag from `package.json`. Remove any `moduleNameMapper` or `coveragePathIgnorePatterns` from `jest.config.js` that were added to fight symptoms of the old issues.
+- [x] **1.2. Clean Project**: Delete all existing test files (`*.test.ts*`) and the contents of the `__mocks__` directory to start fresh.
+- [x] **1.3. Verify Base Jest Setup**: Create a single, trivial "smoke test" (`app/__tests__/smoke.test.tsx`) to confirm that Jest runs without any configuration errors.
 
-### 6. Continuous Integration
-- [x] Create `.github/workflows/test.yml`.
-- [ ] Upload coverage to Codecov (optional) and post badge.
+### Phase 2: Unit & Integration Tests (No UI)
 
-### 7. Documentation
-- [x] Add "Running Tests" section to `README.md`.
-- [ ] Add badge (build & coverage) to README once CI is green.
+- [ ] **2.1. Test Pure Logic**: Create a test for the `wordCount` utility (`src/utils/__tests__/wordCount.test.ts`). This should be a simple test with no dependencies.
+- [ ] **2.2. Mock AWS Amplify**: Create a robust mock for `aws-amplify` that can be reused. This is critical for testing hooks. The mock should be placed in `__mocks__/aws-amplify.js`.
+- [ ] **2.3. Test Data Hooks**: Create a test for the `useJournalEntries` hook (`app/hooks/__tests__/useJournalEntries.test.ts`). This test will rely on the Amplify mock and should thoroughly test the create, read, update, and delete logic, using `@testing-library/react-hooks` and proper `act()` wrappers.
 
-### 8. Pull Request Workflow
-- [ ] Open PR titled `feat(test): add automated test suite` linking this story.
-- [ ] Ensure CI passes; reviewers verify coverage and code quality.
+### Phase 3: Component Tests (Lightweight & Isolated)
+
+- [ ] **3.1. Create a Perfect Calendar Mock**: Create a new, very lightweight mock for `react-native-calendars` in `__mocks__/react-native-calendars.js`. It must only export the components and types used (`Calendar`, `DateData`) and should render simple, non-interactive elements to avoid memory overhead.
+- [ ] **3.2. Test Simplest UI (InsightsScreen)**: Write a test for `InsightsScreen` (`app/screens/__tests__/InsightsScreen.test.tsx`). This screen has minimal state and is a good candidate for the first UI test. Use the mocked `useJournalEntries` hook.
+- [ ] **3.3. Test HomeScreen**: Write tests for `HomeScreen` (`app/screens/__tests__/HomeScreen.test.tsx`).
+    - [ ] Test that it renders correctly in a loading and non-loading state.
+    - [ ] Test the "create entry" functionality, ensuring all asynchronous user interactions are wrapped in `act()`.
+- [ ] **3.4. Test CalendarScreen**: With the robust mock in place, write tests for `CalendarScreen` (`app/screens/__tests__/CalendarScreen.test.tsx`).
+    - [ ] Test that it renders the mock calendar.
+    - [ ] Test that pressing the mock calendar selects a date and displays the correct entries.
+    - [ ] Test that pressing an entry card calls the navigation function.
+
+### Phase 4: CI & Finalization
+
+- [ ] **4.1. Add Linting to CI**: Modify the `.github/workflows/test.yml` file to include a step that runs `npm run lint` (or the equivalent linting command).
+- [ ] **4.2. Final Review**: Ensure all tests pass, there are no `act()` warnings, and the total runtime is reasonable.
+- [ ] **4.3. Update this Story**: Mark all checkboxes as complete.
 
 ## Acceptance Criteria
 
-- [x] Running `npm test` locally executes all test suites without runtime errors.
-- [ ] GitHub Actions workflow runs on every pull request and fails if tests or linting fail.
-- [x] Aggregate line coverage is **≥ 80 %** for code under `app/` and `src/`.
-- [x] Tests cover CRUD hook operations, calendar date marking & navigation, and Insights word count accuracy.
-- [x] README section explains how to run tests and interpret coverage.
+- All tests pass reliably with `npm test`.
+- The test suite completes in a reasonable amount of time (e.g., under 1-2 minutes).
+- There are no out-of-memory crashes or `act(...)` warnings in the console.
+- The CI pipeline fails if either tests or linting fails.
+- Core application logic (utils, hooks) and UI interactions (creating entries, navigating) are covered by tests.
 
 ---
 
