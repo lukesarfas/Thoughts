@@ -81,4 +81,26 @@ Thoughts/
 
 ## License
 
-This project is released under the MIT License. 
+This project is released under the MIT License.
+
+## Running Tests
+
+Install dev dependencies (already included):
+
+```bash
+npm install
+```
+
+Run the full test suite once:
+
+```bash
+npm test
+```
+
+Watch mode:
+
+```bash
+npm run test:watch
+```
+
+Coverage reports are generated in the `coverage` folder. 
