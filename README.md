@@ -1,130 +1,84 @@
-# AI Journaling App
+# Thoughts – AI Journaling App (MVP)
 
-A React Native journaling application built with Expo and TypeScript, featuring local data storage and calendar integration.
+Thoughts is a mobile journaling application built with **React Native** and **Expo SDK&nbsp;50**.  The app focuses on fast, private note-taking with an emphasis on daily reflection.  All data is stored **locally** on the device so it works completely offline, but the codebase already contains **AWS Amplify** scaffolding that will enable cloud sync and authentication in the near future.
 
-## Features
+## What the App Can Do Today
 
-### Stage 1: Basic Navigation ✅
-- Bottom tab navigation with Home, Calendar, and Insights screens
-- Stack navigation for entry details
-- Safe area handling for modern devices
+1. **Create & Edit Entries** – Write plain-text journal entries, update them later, or delete them entirely.
+2. **Persistent Local Storage** – Entries are saved with `@react-native-async-storage/async-storage`; they survive app restarts and work without an internet connection.
+3. **Calendar Browsing** – An interactive calendar (powered by `react-native-calendars`) highlights days that have entries.  Tapping a date shows all notes for that day.
+4. **Basic Insights** – Per-day statistics such as total word count provide lightweight feedback and lay the groundwork for future AI-powered analytics.
+5. **Intuitive Navigation** – Bottom-tab navigation with three main screens:
+   • Home – create new entries & view recent ones
+   • Calendar – browse past entries by date
+   • Insights – see basic statistics
+6. **Modern UI** – Safe-area awareness, dark-mode friendly styles, and smooth transitions via `react-navigation`.
 
-### Stage 2: Local Data Management ✅
-- Create, read, update, and delete journal entries
-- AsyncStorage for local data persistence
-- Custom React hooks for state management
-- Entry detail screen with editing capabilities
+## Under the Hood
 
-### Calendar Integration ✅
-- Interactive calendar with marked dates for entries
-- Date-specific entry browsing
-- Entry statistics and insights for selected dates
-- Navigation to insights from calendar
-
-### Insights Screen ✅
-- Date-specific insights and statistics
-- Word count and entry analysis
-- Placeholder for future AI-powered features
-
-## Tech Stack
-
-- **React Native** with Expo
-- **TypeScript** for type safety
-- **React Navigation** for routing
-- **AsyncStorage** for local data persistence
-- **React Native Calendars** for calendar functionality
-- **React Native Safe Area Context** for device compatibility
+- **Language & Frameworks**: TypeScript, React Native, Expo SDK 50
+- **State / Storage**: Local component state + AsyncStorage
+- **Navigation**: `@react-navigation/bottom-tabs` & `@react-navigation/stack`
+- **Calendar**: `react-native-calendars`
+- **Cloud Prep**: The repository already includes an `amplify/` folder, generated GraphQL schema (`src/graphql/*`), and configuration files (`src/aws-exports.js`, `src/amplifyconfiguration.json`).  These are not yet consumed by the runtime build but pave the way for:
+  - Secure user authentication
+  - Real-time sync across devices
+  - Server-side AI analysis of journal data
 
 ## Getting Started
 
 ### Prerequisites
 
-- Node.js (v16 or higher)
-- npm or yarn
-- Expo CLI (`npm install -g @expo/cli`)
-- Expo Go app on your mobile device
+- Node.js 16+
+- npm (or yarn)
+- Expo CLI – `npm install -g @expo/cli`
+- A physical device with the **Expo Go** app or an iOS/Android simulator
 
-### Installation
+### Installation & Run
 
-1. Clone the repository:
 ```bash
-git clone <repository-url>
-cd Thoughts
+# 1. Clone
+$ git clone https://github.com/<your-username>/Thoughts.git
+$ cd Thoughts
+
+# 2. Install dependencies
+$ npm install
+
+# 3. Start the Metro bundler
+$ npx expo start
 ```
 
-2. Install dependencies:
-```bash
-npm install
-```
+Scan the QR code with Expo Go (or press i / a to launch iOS / Android simulators).
 
-3. Start the development server:
-```bash
-npx expo start
-```
-
-4. Scan the QR code with Expo Go app on your device
-
-### Development
-
-- **Home Screen**: Create new entries and view recent entries
-- **Calendar Screen**: Browse entries by date with calendar interface
-- **Insights Screen**: View statistics and insights for selected dates
-- **Entry Detail**: View, edit, and delete individual entries
-
-## Project Structure
+## Project Layout (simplified)
 
 ```
 Thoughts/
-├── app/
-│   ├── models/
-│   │   └── Entry.ts              # Entry data model
-│   ├── services/
-│   │   └── LocalStorageService.ts # AsyncStorage operations
-│   ├── hooks/
-│   │   └── useJournalEntries.ts  # Custom React hook
-│   ├── screens/
-│   │   ├── HomeScreen.tsx        # Entry creation and recent entries
-│   │   ├── CalendarScreen.tsx    # Calendar with date selection
-│   │   ├── InsightsScreen.tsx    # Statistics and insights
-│   │   └── EntryDetailScreen.tsx # Entry viewing and editing
-│   └── navigation/
-│       └── AppNavigator.tsx      # Navigation setup
-├── assets/                       # App icons and splash screens
-├── App.tsx                       # Main app component
-├── index.ts                      # App entry point
-├── app.json                      # Expo configuration
-├── package.json                  # Dependencies and scripts
-└── tsconfig.json                 # TypeScript configuration
+├── app/                 # Feature code: models, hooks, screens, navigation
+│   └── ...
+├── src/
+│   ├── graphql/         # Auto-generated GraphQL queries & schema (Amplify)
+│   ├── aws-exports.js   # Amplify runtime config (generated)
+│   └── amplifyconfiguration.json
+├── amplify/             # Backend definition managed by Amplify CLI
+├── assets/              # Icons, images, splash screens
+├── App.tsx              # Root component
+├── package.json
+└── tsconfig.json
 ```
 
-## Future Stages
+## Current Limitations
 
-### Stage 3: AWS Backend Integration
-- AWS Amplify or AppSync for backend services
-- User authentication and data synchronization
-- Cloud storage for journal entries
-
-### Stage 4: AI Integration
-- OpenAI API integration for journal analysis
-- Sentiment analysis and mood tracking
-- AI-powered writing prompts and insights
-- Natural language processing for entry categorization
-
-### Stage 5: Advanced Features
-- Rich text editing
-- Image attachments
-- Voice-to-text entry creation
-- Export and backup functionality
-- Advanced analytics and reporting
+- No user accounts or cloud synchronisation yet – entries live only on the device that created them.
+- Insights are basic; AI-driven sentiment analysis and prompts are still on the roadmap.
+- Rich-text editing, image attachments, and export/backup options are not implemented.
 
 ## Contributing
 
-1. Fork the repository
-2. Create a feature branch
-3. Make your changes
-4. Test thoroughly
-5. Submit a pull request
+1. Fork the repository & create a feature branch.
+2. Follow ESLint/prettier rules.
+3. Submit a pull request – describe your changes clearly.
 
 ## License
 
-This project is licensed under the MIT License. 
+This project is released under the MIT License. 
