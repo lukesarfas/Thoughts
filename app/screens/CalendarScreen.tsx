@@ -15,7 +15,6 @@ import { useFocusEffect } from '@react-navigation/native';
 export default function CalendarScreen({ navigation }: any) {
   const { entries, loading, error, loadEntries } = useJournalEntries();
   const [selectedDate, setSelectedDate] = useState<string>('');
-  const [calendarRef, setCalendarRef] = useState<any>(null);
 
   // Get today's date in YYYY-MM-DD format
   const getTodayString = () => {
@@ -34,10 +33,6 @@ export default function CalendarScreen({ navigation }: any) {
   const handleTodayPress = () => {
     const today = getTodayString();
     setSelectedDate(today);
-    // Scroll to today's date in the calendar
-    if (calendarRef) {
-      calendarRef.scrollToMonth(today);
-    }
   };
 
   // Create marked dates object for calendar
@@ -172,7 +167,6 @@ export default function CalendarScreen({ navigation }: any) {
             textMonthFontSize: 18,
             textDayHeaderFontSize: 14,
           }}
-          ref={(ref) => setCalendarRef(ref)}
         />
       </View>
 
