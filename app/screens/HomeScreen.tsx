@@ -79,11 +79,13 @@ export default function HomeScreen({ navigation }: any) {
           multiline
           numberOfLines={4}
           textAlignVertical="top"
+          testID="new-entry-input"
         />
         <TouchableOpacity
           style={[styles.button, isCreating && styles.buttonDisabled]}
           onPress={handleCreateEntry}
           disabled={isCreating}
+          testID="save-entry-button"
         >
           <Text style={styles.buttonText}>
             {isCreating ? 'Creating...' : 'Save Entry'}

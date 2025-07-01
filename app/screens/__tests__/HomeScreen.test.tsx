@@ -78,12 +78,12 @@ describe('HomeScreen', () => {
       loadEntries: jest.fn(),
     });
 
-    const { getByText, getByPlaceholderText } = render(<HomeScreen navigation={navigation} />);
-
-    const input = getByPlaceholderText("What's on your mind today?");
+    const { getByTestId } = render(<HomeScreen navigation={navigation} />);
+    
+    const input = getByTestId('new-entry-input');
     fireEvent.changeText(input, 'New test entry');
-
-    const saveButton = getByText('Save Entry');
+    
+    const saveButton = getByTestId('save-entry-button');
     await act(async () => {
       fireEvent.press(saveButton);
     });
