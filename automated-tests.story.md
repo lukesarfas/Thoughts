@@ -21,9 +21,9 @@ As a maintainer, I want a robust and **fast** automated test suite for the core 
 
 ### Phase 2: Unit & Integration Tests (No UI)
 
-- [ ] **2.1. Test Pure Logic**: Create a test for the `wordCount` utility (`src/utils/__tests__/wordCount.test.ts`). This should be a simple test with no dependencies.
-- [ ] **2.2. Mock AWS Amplify**: Create a robust mock for `aws-amplify` that can be reused. This is critical for testing hooks. The mock should be placed in `__mocks__/aws-amplify.js`.
-- [ ] **2.3. Test Data Hooks**: Create a test for the `useJournalEntries` hook (`app/hooks/__tests__/useJournalEntries.test.ts`). This test will rely on the Amplify mock and should thoroughly test the create, read, update, and delete logic, using `@testing-library/react-hooks` and proper `act()` wrappers.
+- [x] **2.1. Test Pure Logic**: Create a test for the `wordCount` utility (`src/utils/__tests__/wordCount.test.ts`). This should be a simple test with no dependencies.
+- [x] **2.2. Mock AWS Amplify**: Create a robust mock for `aws-amplify` that can be reused. This is critical for testing hooks. The mock should be placed in `__mocks__/aws-amplify.js`.
+- [x] **2.3. Test Data Hooks**: Create a test for the `useJournalEntries` hook (`app/hooks/__tests__/useJournalEntries.test.ts`). This test will rely on the Amplify mock and should thoroughly test the create, read, update, and delete logic, using `@testing-library/react-hooks` and proper `act()` wrappers.
 
 ### Phase 3: Component Tests (Lightweight & Isolated)
 
