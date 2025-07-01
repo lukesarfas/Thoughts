@@ -55,15 +55,13 @@ As a maintainer, I want to refactor the existing test suite to be more robust, m
 
 **Goal:** Achieve a clean test output.
 
-- [ ] **Step 5.3.1: Isolate the "create entry" test.**
+- [x] **Step 5.3.1: Isolate the "create entry" test.**
     - **File:** `app/screens/__tests__/HomeScreen.test.tsx`
     - **Action:** Change `it(...)` to `it.only(...)` for the "creates a new entry" test.
-
-- [ ] **Step 5.3.2: Add `waitFor` to the test.**
+- [x] **Step 5.3.2: Add `waitFor` to the test.**
     - **File:** `app/screens/__tests__/HomeScreen.test.tsx`
     - **Action:** After `fireEvent.press`, add a `waitFor` block to wait until the `isCreating` state has resolved. Assert that the button text is "Save Entry" again within the `waitFor`.
-
-- [ ] **Step 5.3.3: Verify and remove `.only`.**
+- [x] **Step 5.3.3: Verify and remove `.only`.**
     - **Action:** Run the tests, confirm the warning is gone, and then remove `.only` from the test case.
 
 ---

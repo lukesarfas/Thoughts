@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, fireEvent, act } from '@testing-library/react-native';
+import { render, fireEvent, act, waitFor, within } from '@testing-library/react-native';
 import HomeScreen from '../HomeScreen';
 import { useJournalEntries } from '../../hooks/useJournalEntries';
 import { useFocusEffect } from '@react-navigation/native';
@@ -84,8 +84,13 @@ describe('HomeScreen', () => {
     fireEvent.changeText(input, 'New test entry');
     
     const saveButton = getByTestId('save-entry-button');
-    await act(async () => {
+    
+    act(() => {
       fireEvent.press(saveButton);
+    });
+    
+    await waitFor(() => {
+      expect(within(getByTestId('save-entry-button')).getByText('Save Entry')).toBeTruthy();
     });
 
     expect(createEntryMock).toHaveBeenCalledWith({ text: 'New test entry' });
