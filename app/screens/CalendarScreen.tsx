@@ -181,7 +181,7 @@ export default function CalendarScreen({ navigation }: any) {
               {selectedDateEntries.length > 0 && (
                 <View style={styles.statsContainer}>
                   <Text style={styles.statsText}>
-                    {selectedDateEntries.length} entry{selectedDateEntries.length !== 1 ? 'ies' : 'y'}
+                    {selectedDateEntries.length} {selectedDateEntries.length === 1 ? 'entry' : 'entries'}
                   </Text>
                   <Text style={styles.statsText}>
                     {getDateStats(selectedDateEntries).totalWords} words
