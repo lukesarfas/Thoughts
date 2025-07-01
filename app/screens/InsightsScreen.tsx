@@ -6,7 +6,7 @@ import { wordCount } from '../../src/utils/wordCount';
 
 export default function InsightsScreen({ route, navigation }: any) {
   const { selectedDate } = route?.params || {};
-  const { entries, loading, error } = useJournalEntries();
+  const { entries } = useJournalEntries();
   const [dateEntries, setDateEntries] = useState<any[]>([]);
 
   useEffect(() => {

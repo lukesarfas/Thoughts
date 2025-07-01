@@ -1,8 +1,7 @@
 import React from 'react';
-import { render, within } from '@testing-library/react-native';
+import { render } from '@testing-library/react-native';
 import InsightsScreen from '../InsightsScreen';
 import { useJournalEntries } from '../../hooks/useJournalEntries';
-import { wordCount as realWordCount } from '../../../src/utils/wordCount';
 
 // Manually mock the utils module
 jest.mock('../../../src/utils/wordCount', () => {

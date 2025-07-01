@@ -35,7 +35,8 @@ export default function HomeScreen({ navigation }: any) {
       await createEntry({ text: newEntryText.trim() });
       setNewEntryText('');
       Alert.alert('Success', 'Journal entry created successfully!');
-    } catch (err) {
+    } catch (e) {
+      console.log('Error creating entry:', e);
       Alert.alert('Error', 'Failed to create journal entry');
     } finally {
       setIsCreating(false);

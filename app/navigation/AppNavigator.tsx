@@ -1,140 +1,85 @@
 import React, { useState, useEffect } from 'react';
+import { View, ActivityIndicator } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { createStackNavigator } from '@react-navigation/stack';
-import { Ionicons } from '@expo/vector-icons';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { Auth, Hub } from 'aws-amplify';
-import { Button, View } from 'react-native';
 
-import HomeScreen from '../screens/HomeScreen';
-import CalendarScreen from '../screens/CalendarScreen';
-import InsightsScreen from '../screens/InsightsScreen';
 import EntryDetailScreen from '../screens/EntryDetailScreen';
-import SignInScreen from '../screens/SignInScreen';
-import SignUpScreen from '../screens/SignUpScreen';
+import AuthScreen from '../screens/AuthScreen';
+import AppTabs from './AppTabs';
 
-const Tab = createBottomTabNavigator();
-const Stack = createStackNavigator();
+const Stack = createNativeStackNavigator();
 
-// --- Auth Flow Screens ---
-function AuthStack() {
-  return (
-    <Stack.Navigator screenOptions={{ headerShown: false }}>
-      <Stack.Screen name="SignIn" component={SignInScreen} />
-      <Stack.Screen name="SignUp" component={SignUpScreen} />
-    </Stack.Navigator>
-  );
-}
+const AppNavigator = () => (
+  <Stack.Navigator>
+    <Stack.Screen
+      name="Main"
+      component={AppTabs}
+      options={{ headerShown: false }}
+    />
+    <Stack.Screen name="EntryDetail" component={EntryDetailScreen} />
+  </Stack.Navigator>
+);
 
+const AuthNavigator = () => (
+  <Stack.Navigator>
+    <Stack.Screen
+      name="Auth"
+      component={AuthScreen}
+      options={{ headerShown: false }}
+    />
+  </Stack.Navigator>
+);
 
-// --- Main App Screens ---
-
-function HomeStack() {
-  return (
-    <Stack.Navigator screenOptions={{ headerShown: false }}>
-      <Stack.Screen name="HomeMain" component={HomeScreen} />
-      <Stack.Screen name="EntryDetail" component={EntryDetailScreen} />
-    </Stack.Navigator>
-  );
-}
-
-function CalendarStack() {
-  return (
-    <Stack.Navigator screenOptions={{ headerShown: false }}>
-      <Stack.Screen name="CalendarMain" component={CalendarScreen} />
-      <Stack.Screen name="EntryDetail" component={EntryDetailScreen} />
-    </Stack.Navigator>
-  );
-}
-
-function InsightsStack() {
-    return (
-        <Stack.Navigator screenOptions={{ headerShown: false }}>
-            <Stack.Screen name="InsightsMain" component={InsightsScreen} />
-        </Stack.Navigator>
-    );
-}
-
-// A new screen to show profile info and a sign out button
-function ProfileScreen() {
-    return (
-        <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-            <Button title="Sign Out" onPress={() => Auth.signOut()} />
-        </View>
-    );
-}
-
-function AppTabs() {
-    return (
-        <Tab.Navigator
-            screenOptions={({ route }) => ({
-            tabBarIcon: ({ focused, color, size }) => {
-                let iconName: keyof typeof Ionicons.glyphMap;
-
-                if (route.name === 'Home') {
-                iconName = focused ? 'home' : 'home-outline';
-                } else if (route.name === 'Calendar') {
-                iconName = focused ? 'calendar' : 'calendar-outline';
-                } else if (route.name === 'Insights') {
-                iconName = focused ? 'analytics' : 'analytics-outline';
-                } else if (route.name === 'Profile') {
-                iconName = focused ? 'person-circle' : 'person-circle-outline';
-                } else {
-                iconName = 'help-outline';
-                }
-
-                return <Ionicons name={iconName} size={size} color={color} />;
-            },
-            tabBarActiveTintColor: '#007AFF',
-            tabBarInactiveTintColor: 'gray',
-            headerShown: false,
-            })}
-        >
-            <Tab.Screen name="Home" component={HomeStack} />
-            <Tab.Screen name="Calendar" component={CalendarStack} />
-            <Tab.Screen name="Insights" component={InsightsStack} />
-            <Tab.Screen name="Profile" component={ProfileScreen} />
-        </Tab.Navigator>
-    )
-}
-
-export default function AppNavigator() {
-  const [user, setUser] = useState<any | null>(null);
+function RootNavigator() {
+  const [user, setUser] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    // Check the current user when the app starts
-    const checkUser = async () => {
+    const fetchUser = async () => {
       try {
-        const currentUser = await Auth.currentAuthenticatedUser();
-        setUser(currentUser);
-      } catch (error) {
+        const userData = await Auth.currentAuthenticatedUser();
+        setUser(userData);
+      } catch {
         setUser(null);
+      } finally {
+        setIsLoading(false);
       }
     };
 
-    checkUser();
+    fetchUser();
 
-    // Listen for auth events (sign in, sign out) and update the user state
-    const listener = (data: any) => {
+    const listener = (data: { payload: { event: string } }) => {
       switch (data.payload.event) {
         case 'signIn':
-          checkUser();
+          fetchUser();
           break;
         case 'signOut':
           setUser(null);
+          break;
+        default:
           break;
       }
     };
 
     Hub.listen('auth', listener);
 
-    // Cleanup the listener on unmount
     return () => Hub.remove('auth', listener);
   }, []);
 
+  if (isLoading) {
+    return (
+      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+        <ActivityIndicator />
+      </View>
+    );
+  }
+
   return (
     <NavigationContainer>
-      {user ? <AppTabs /> : <AuthStack />}
+      {user ? <AppNavigator /> : <AuthNavigator />}
     </NavigationContainer>
   );
-} 
+}
+
+export default RootNavigator; 

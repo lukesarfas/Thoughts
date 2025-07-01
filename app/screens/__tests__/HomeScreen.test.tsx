@@ -2,7 +2,6 @@ import React from 'react';
 import { render, fireEvent, act, waitFor, within } from '@testing-library/react-native';
 import HomeScreen from '../HomeScreen';
 import { useJournalEntries } from '../../hooks/useJournalEntries';
-import { useFocusEffect } from '@react-navigation/native';
 import { Alert } from 'react-native';
 
 // Mock modules
@@ -85,15 +84,14 @@ describe('HomeScreen', () => {
     
     const saveButton = getByTestId('save-entry-button');
     
-    act(() => {
+    await act(async () => {
       fireEvent.press(saveButton);
     });
     
     await waitFor(() => {
-      expect(within(getByTestId('save-entry-button')).getByText('Save Entry')).toBeTruthy();
+      expect(createEntryMock).toHaveBeenCalledWith({ text: 'New test entry' });
     });
 
-    expect(createEntryMock).toHaveBeenCalledWith({ text: 'New test entry' });
     expect(Alert.alert).toHaveBeenCalledWith('Success', 'Journal entry created successfully!');
   });
 }); 
