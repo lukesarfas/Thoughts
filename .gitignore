@@ -126,3 +126,10 @@ amplifytools.xcconfig
 .secret-*
 **.sample
 #amplify-do-not-edit-end
+
+# testing
+coverage/
+test-results.json
+
+# misc
+.DS_Store
